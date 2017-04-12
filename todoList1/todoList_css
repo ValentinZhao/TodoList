@@ -119,7 +119,7 @@ div.event_input_zone {
 
 .finish_btn_content {
     position: relative;
-    left: 20%;
+    left: 32%;
     top: 30%;
     text-align: center;
 }

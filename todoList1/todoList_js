@@ -1,26 +1,21 @@
 var todoList = null;
-// (function() {
+(function() {
+    var str = localStorage.getItem("todoList");
+    if (str !== null) {
+        todoList = str !== null ? JSON.parse(str) : [];
+        renderHTML();
+    } else {
+        todoList = [];
+    }
+    // alert("xxx");
+})();
 
-
-//     function init() {
-//         var str = localStorage.getItem("todoList");
-//         if (str) {
-//             todoList = JSON.parse(str);
-//             renderHTML();
-//         } else {
-//             todoList = [];
-//         }
-//     }
-//     init();
-
-
-// })();
 
 function renderHTML() {
     if (todoList) {
         for (var index in todoList) {
             var todo = todoList[index];
-            createTr(todo);
+            var tr = createTr(todo);
         }
     }
 }
@@ -30,14 +25,16 @@ function addEvents() {
     var mEvent = mInput.value;
     mInput.value = "";
     var todo = { 'event': mEvent, 'isFinished': false };
-    createTr(todo);
-    // todoList.push(todo);
+    var tbody = document.querySelector(".no_finish_body");
+    var tr = createTr(todo);
+    tbody.appendChild(tr);
+    todoList.push(todo);
     localStorage.setItem("todoList", JSON.stringify(todoList));
 }
 
 function createTr(todo) {
-    var mButton = document.querySelector(".event_add_btn");
-    var tbody = document.querySelector(".no_finish_body");
+    // var mButton = document.querySelector(".event_add_btn");
+    // var tbody = document.querySelector(".no_finish_body");
     var tr = document.createElement("tr");
     var td = document.createElement("td");
     var textTd = document.createElement("td");
@@ -74,7 +71,8 @@ function createTr(todo) {
     tr.appendChild(textTd);
     tr.appendChild(editTd);
     tr.appendChild(delTd);
-    tbody.appendChild(tr);
+    return tr;
+    // tbody.appendChild(tr);
 }
 
 function finishEvent() {
