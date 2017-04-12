@@ -78,7 +78,6 @@ function createTr(todo) {
 }
 
 function finishEvent() {
-    console.log("点击已完成");
     var leftBody = document.querySelector('.no_finish_body');
     var rightBody = document.querySelector('.finished_body');
     var finishedList = [];
