@@ -1,5 +1,7 @@
 var todoList = null;
-(function() {
+window.addEventListener("load", init, false);
+
+function init() {
     var str = localStorage.getItem("todoList");
     if (str !== null) {
         todoList = str !== null ? JSON.parse(str) : [];
@@ -8,14 +10,16 @@ var todoList = null;
         todoList = [];
     }
     // alert("xxx");
-})();
+}
 
 
 function renderHTML() {
     if (todoList) {
         for (var index in todoList) {
+            var mBody = document.querySelector(".no_finish_body");
             var todo = todoList[index];
             var tr = createTr(todo);
+            mBody.appendChild(tr);
         }
     }
 }
