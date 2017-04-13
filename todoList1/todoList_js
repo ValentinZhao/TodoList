@@ -9,7 +9,6 @@ function init() {
     } else {
         todoList = [];
     }
-    // alert("xxx");
 }
 
 
@@ -151,4 +150,8 @@ function finishEdit() {
     textTd.innerHTML = eventName;
     editTd.removeChild(this);
     editTd.appendChild(span);
+}
+
+function clearCache() {
+    localStorage.clear();
 }

@@ -11,7 +11,9 @@
         <div class="event_input_zone">
             <input type="text" class="event_wrapper" id="event_input">
         </div>
-        <div class="event_add_btn" onclick="addEvents()"><span class="event_add_btn_content">ADD</span></div>
+        <div class="event_add_btn" onclick="addEvents()">
+            <span class="event_add_btn_content">ADD</span>
+        </div>
         <div class="all_event_wrapper">
             <div class="event_no_finish">
                 <table class="table_no_finish">
@@ -26,6 +28,9 @@
                 <div class="finish_btn" onclick="finishEvent()">
                     <span class="finish_btn_content">已完成<br>>></span>
                 </div>
+                <div class="clear_cache_btn" onclick="clearCache()">
+                    <span class="clear_cache_btn_content">清除<br>缓存</span>
+                </div>
             </div>
             <div class="event_finished">
                 <table class="table_finished">
@@ -36,6 +41,14 @@
                 	</tbody>
                 </table>
             </div>
+            <div class="warning_wrapper">
+                <ul>
+                    <li>在输入框内输入你要完成的事件，点击<b>“ADD”</b>即可将事件加入下方<b>左侧</b>的事件框内</li>
+                    <li>刚开始加入的事件都是“未完成事件”，<b>“编辑”</b>按钮可以让你重新编辑该事件，<b>“删除”</b>按钮则删掉本条事件</li>
+                    <li>勾选某个事件即可使其变为“已完成事件”状态，但要注意点击屏幕中央的<b>“已完成”</b>按钮来将其加入到右侧“已完成事件”框体内</li>
+                    <li>应注意的是，为了防止误删，我将你的每条记录都缓存了起来，只要你刷新页面（F5键）就可以拿回你所有曾输入的事件，如果你觉得缓存的数据都没有用了，可以选择点击<b>“清除缓存”</b>按钮（清除后也要刷新哦）</li>
+                </ul>
+        </div>
         </div>
     </body>
 </html>
