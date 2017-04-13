@@ -2,8 +2,10 @@
 ***
 My first attempt to build a functional web page. A simple To-do list which is quite useful for people who used to list their daily events.
 ##Usage
+___
 Just drag the html file into your Internet browser.
 ##Feature
+___
 - You can add a new event by typing it in input banner and hitting **ADD** button to add it into left box below.
 - Every event which stands in left box is an *unfinished event* and you can hit the checkbox to enable it then you are free to click **已完成** button to transfer *finished event* into right box below.
 - You can edit what you type by clicking **编辑** button and delete this event by clicking **删除** button.
