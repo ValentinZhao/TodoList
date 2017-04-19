@@ -37,3 +37,38 @@
 ## 具体
 ### 全局样式
 具体使用可以直接查询使用手册，如颜色，对齐等。需要注意的是，若要自定义标签属性我们直接覆盖bootstrap中的属性即可。
+### Bootstrap中的代码
+code、kbd、pre...不管使用哪种代码风格，在代码中碰到小于号（<）要使用硬编码“& lt;”来替代，大于号(>)使用“& gt;”来替代。<br>
+pre的滚动条 -> class="pre-scrollable"
+### 表格
+	<table class="table table-bordered">
+  		<thead>
+    <tr>
+      <th>类名</th>
+      <th>描述</th>
+    </tr>
+  	</thead>
+ 	 	<tbody>
+    <tr class="active">
+      <td>.active</td>
+      <td>表示当前活动的信息</td>
+    </tr>
+    <tr class="success">
+      <td>.success</td>
+      <td>表示成功或者正确的行为</td>
+    </tr>
+    <tr class="info">
+      <td>.info</td>
+      <td>表示中立的信息或行为</td>
+    </tr>
+    <tr class="warning">
+      <td>.warning</td>
+      <td>表示警告，需要特别注意</td>
+    </tr>
+    <tr class="danger">
+      <td>.danger</td>
+      <td>表示危险或者可能是错误的行为</td>
+    </tr>
+ 	 	</tbody>
+	</table>
+- 加table类就是基础表格
