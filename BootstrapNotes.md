@@ -167,3 +167,46 @@ pre的滚动条 -> class="pre-scrollable"
 - 关于按钮大小，bootstrap提供了三个类名控制大小。大型：btn-lg，小型：btn-sm，微型：btn-xs
 - 关于按钮的display,默认缺省设置是inline-block，也就是多个按钮可存在于同一行。我们可以手动添加类名"btn-block"使它们分占各行并且占满width
 - 关于按钮的禁用，跟input类似，可以通过给类名添加disabled来禁用，也可以直接添加一个disabled属性，设置为disabled
+### 图标
+- 一段例子
+>     <span class="glyphicon glyphicon-search"></span>
+>	    <span class="glyphicon glyphicon-asterisk"></span>
+>	    <span class="glyphicon glyphicon-plus"></span>
+>	    <span class="glyphicon glyphicon-cloud"></span>
+***
+具体的一些图标的类名可以参照下图
+![](http://img.mukewang.com/53db07d100018d5010500434.jpg)
+### 网格
+- 注意列组合数字不能超过12
+- 列偏移，col-md-offset-x，可以通过改变x来控制偏移。注意还是不要超过12
+- 网格列也可以嵌套，注意包裹内的列也不要超过12行否则会换行显示
+### 下拉菜单
+- 在使用Bootstrap框架的下拉菜单时，必须调用Bootstrap框架提供的bootstrap.js文件。当然，如果你使用的是未编译版本，在js文件夹下你能找到一个名为“dropdown.js”的文件。你也可以调用这个js文件。
+- 因为Bootstrap的组件交互效果都是依赖于jQuery库写的插件，所以在使用bootstrap.min.js之前一定要先加载jquery.min.js才会生效果。
+- 一个Demo演示
+>     <!DOCTYPE HTML>
+>     <html>
+>     <head>
+>     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+>     <title>下拉菜单</title>
+>     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+>     <link rel="stylesheet" href="style.css">
+>     </head>
+>     <body>
+> 
+>     <div class="dropdown">
+>     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+>     下拉菜单
+>     <span class="caret"></span>
+>       </button>
+>       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+>         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+>         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+>         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+>         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">下拉菜单项</a></li>
+>       </ul>
+>     </div
+>     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+>     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script
+>     </body>
+>     </html>
