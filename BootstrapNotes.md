@@ -163,4 +163,7 @@ pre的滚动条 -> class="pre-scrollable"
 >     <button class="btn btn-danger" type="button">危险按钮.btn-danger</button>
 >     <button class="btn btn-link" type="button">链接按钮.btn-link</button>
 ***
-- 是
+- 关于按钮样式，在bootstrap中可以为任何标签添加"btn btn-default"等将该标签变为一个按钮。但不推荐这么做因为不符合响应式设计而且会出现浏览器不支持的情况。
+- 关于按钮大小，bootstrap提供了三个类名控制大小。大型：btn-lg，小型：btn-sm，微型：btn-xs
+- 关于按钮的display,默认缺省设置是inline-block，也就是多个按钮可存在于同一行。我们可以手动添加类名"btn-block"使它们分占各行并且占满width
+- 关于按钮的禁用，跟input类似，可以通过给类名添加disabled来禁用，也可以直接添加一个disabled属性，设置为disabled
