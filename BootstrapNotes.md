@@ -97,4 +97,70 @@ pre的滚动条 -> class="pre-scrollable"
 > 	</label>
 > 	  </div>
 ***
-- s
+- 需要水平排列的checkbox与radio只需要将label类名声明为"checkbox-inline"和"radio-inline"即可
+- 按钮控件，在button标签内的类名声明为"btn btn-xxx"即可，比如
+
+
+>     <button class="btn btn-primary" href="#">Primary</button>
+>     <button class="btn btn-info" href="#">info</button>
+>     <button class="btn btn-success" href="#">success</button>
+>     <button class="btn btn-warning" href="#">warning</button>
+>     <button class="btn btn-danger" href="#">danger</button>
+>     <button class="btn btn-inverse" href="#">inverse</button>
+***
+- 表单控件大小，可以在input的form-control类名之后直接加input-sm,input-lg;或者在容器div中加属性类名"col-xs-4", "col-xs-4"等等。示例代码如下
+>     <div class="form-group">
+>     <label class="control-label">控件变小</label>
+>      <input class="form-control input-sm" type="text" placeholder="添加.input-sm，控件变小">
+>     </div>
+>     
+>     <div class="col-xs-4">
+>      <input class="form-control input-lg" type="text" placeholder=".col-xs-4">
+>    </div>
+***
+- 表单的禁用状态，在有"form-control"的表单控件后加上“disabled”即可禁用；若之前没有form-control，只会出现将cursor变为not-allowed样式但依然可以输入；再有就是fieldset标签后直接加disabled会将整个输入域全部禁用，**只有legend包裹的input可以幸免于难**。
+- 表单的验证状态，主要就是"has-success","has-warning","has-error"的几个属性的添加，具体可看以下代码。带有"glyphicon glyphicon-warning-sign form-control-feedback"类名属性的标签在提醒时还会有一个图标的提示。
+>     <form role="form">
+>     <div class="form-group has-success">
+>         <label class="control-label" for="inputSuccess1">成功状态</label>
+>         <input type="text" class="form-control" id="inputSuccess1" placeholder="成功状态" >
+>     </div>
+>     <div class="form-group has-warning">
+>         <label class="control-label" for="inputWarning1">警告状态</label>
+>         <input type="text" class="form-control" id="inputWarning1" placeholder="警告状态">
+>     </div>
+>     <div class="form-group has-error">
+>         <label class="control-label" for="inputError1">错误状态</label>
+>         <input type="text" class="form-control" id="inputError1" placeholder="错误状态">
+>     </div>
+>     </form>
+>     <form role="form">
+>     <div class="form-group has-success has-feedback">
+>         <label class="control-label" for="inputSuccess1">成功状态</label>
+>         <input type="text" class="form-control" id="inputSuccess1" placeholder="成功状态" >
+>         <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+>     </div>
+>     <div class="form-group has-warning has-feedback">
+>         <label class="control-label" for="inputWarning1">警告状态</label>
+>         <input type="text" class="form-control" id="inputWarning1" placeholder="警告状态">
+>         <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
+>     </div>
+>     <div class="form-group has-error has-feedback">
+>         <label class="control-label" for="inputError1">错误状态</label>
+>         <input type="text" class="form-control" id="inputError1" placeholder="错误状态">
+>         <span class="glyphicon glyphicon-remove form-control-feedback"></span 
+>     </div> 
+***
+- 那么有关表单验证状态的提示信息，比如在密码输入错误后在输入框下方用红色字体提示“密码有误”，bootstrap提供了"help-block"类，配合上一条的"has-success has-feedback"属性来优化提示界面。
+### 按钮
+- 按钮种类
+>     <button class="bn" >基础按钮.btn</button> 
+>     <button class="btn btn-default" >默认按钮.btn-default</button>
+>     <button class="btn btn-primary" type="button">主要按钮.btn-primary</button>
+>     <button class="btn btn-success" >成功按钮.btn-success</button>
+>     <button class="btn btn-info" type="button">信息按钮.btn-info</button>
+>     <button class="btn btn-warning" type="button">警告按钮.btn-warning</button>
+>     <button class="btn btn-danger" type="button">危险按钮.btn-danger</button>
+>     <button class="btn btn-link" type="button">链接按钮.btn-link</button>
+***
+- 是
