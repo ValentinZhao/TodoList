@@ -268,3 +268,92 @@ pre的滚动条 -> class="pre-scrollable"
 >     </li>
 >     <li><a href="##">关于我们</a></li>
 >     </ul>
+***
+- Breadcrumb面包屑式导航，主要用于告知用户自己所处页面的位置。只需要为ol添加"breadcrumb"类名即可
+### 导航条
+- 第一步：首先在制作导航的列表(`<ul class=”nav”>`)基础上添加类名“navbar-nav”
+
+第二步：在列表外部添加一个容器（div），并且使用类名“navbar”和“navbar-default”
+>     <div class="navbar navbar-default" role="navigation">
+>         <ul class="nav navbar-nav">
+> 	 	   <li class="active"><a href="##">网站首页</a></li>
+>            <li><a href="##">系列教程</a></li>
+>            <li><a href="##">名师介绍</a></li>
+>            <li><a href="##">成功案例</a></li>
+>            <li><a href="##">关于我们</a></li>
+> 	    </ul>
+>     </div>
+***
+>     <div class="navbar navbar-default" role="navigation">
+>     <div class="navbar-header">
+>         <a href="##" class="navbar-brand">慕课网</a>
+>     </div>
+> 	<ul class="nav navbar-nav">
+> 	 	<li class="active"><a href="##">网站首页</a></li>
+>         <li class="dropdown">
+>             <a href="##" data-toggle="dropdown" class="dropdown-toggle">系列教程<span class="caret"></span></a>
+>             <ul class="dropdown-menu">
+>         	    <li><a href="##">CSS3</a></li>
+>         	    <li><a href="##">JavaScript</a></li>
+>         	    <li class="disabled"><a href="##">PHP</a></li>
+>             </ul>
+>         </li>
+>         <li><a href="##">名师介绍</a></li>
+>         <li><a href="##">成功案例</a></li>
+>         <li><a href="##">关于我们</a></li>
+>     </ul>
+>     </div>
+***
+- 带表单：在Bootstrap框架中提供了一个“navbar-form”，使用方法很简单，在navbar容器中放置一个带有navbar-form类名的表单
+>     <form action="##" class="navbar-form navbar-left" rol="search">
+>    	    <div class="form-group">
+>    		   <input type="text" class="form-control" placeholder="请输入关键词" />
+>    	    </div>
+>         <button type="submit" class="btn btn-default">搜索</button>
+>     </form>
+***
+- 在上面的示例中，大家看到了“navbar-left”让表单左浮动，更好实现对齐。在Bootstrap框架中，还提供了“navbar-right”样式，让元素在导航条靠右对齐。
+- 导航条中的按钮navbar-btn
+，导航条中的文本navbar-text，
+导航条中的普通链接navbar-link
+- **固定导航条**：只要在<span style="color:red">最外层容器</span>上添加"nav-fixed-top"或者"nav-fixed-bottom"就可以了
+- 响应式导航条，观察如下效果
+![](http://img.mukewang.com/53eded3b0001db2a06970046.jpg)<br>*宽屏时效果*
+![](http://img.mukewang.com/53f580af00017ef408720073.jpg)
+<br>*中屏时效果*
+![](http://img.mukewang.com/53f580e30001bba208690079.jpg)
+<br>*窄屏时效果*
+***
+1. 保证在窄屏时需要折叠的内容必须包裹在带一个div内，并且为这个div加入collapse、navbar-collapse两个类名。最后为这个div添加一个class类名或者id名
+2. 保证在窄屏时要显示的图标样式（固定写法）
+`<button class="navbar-toggle" type="button" data-toggle="collapse">`
+`<span class="sr-only">Toggle Navigation</span>`
+`</button>`
+3. 并为button添加data-target=".类名/#id名"，究竞是类名还是id名呢？由**需要折叠的div**来决定。
+>     <div class="navbar navbar-default" role="navigation">
+>     <div class="navbar-header">
+>      　<!-- .navbar-toggle样式用于toggle收缩的内容，即nav-collapse collapse样式所在元素 -->
+>        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+>          <span class="sr-only">Toggle Navigation</span>
+>          <span class="icon-bar"></span>
+>          <span class="icon-bar"></span>
+>          <span class="icon-bar"></span>
+>        </button>
+>        <!-- 确保无论是宽屏还是窄屏，navbar-brand都显示 -->
+>        <a href="##" class="navbar-brand">慕课网</a>
+>     </div>
+>     <!-- 屏幕宽度小于768px时，div.navbar-responsive-collapse容器里的内容都会隐藏，显示icon-bar图标，当点击icon-bar图标时，再展开。屏幕大于768px时，默认显示。 -->
+>     <div class="collapse navbar-collapse navbar-responsive-collapse">
+>     	<ul class="nav navbar-nav">
+>       		<li class="active"><a href="##">网站首页</a></li>
+>       		<li><a href="##">系列教程</a></li>
+>       		<li><a href="##">名师介绍</a></li>
+>       		<li><a href="##">成功案例</a></li>
+>       		<li><a href="##">关于我们</a></li>
+> 	 	</ul>
+>     </div>
+>     </div>
+***
+- 反色导航条：navbar-inverse
+- 分页导航
+- 跟分页类似，还有提供“上一页”，“下一页”的类：**“pager"**，并能在其中的属性设置"previous"、"next"来设置左右对齐
