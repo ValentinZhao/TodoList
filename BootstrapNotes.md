@@ -210,3 +210,61 @@ pre的滚动条 -> class="pre-scrollable"
 >     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script
 >     </body>
 >     </html>
+***
+- 添加分割线<br>
+`<li role="presentation" class="divider"></li>`
+- 为下拉菜单的各个部分添加标题<br>
+`<li role="presentation" class="dropdown-header">第一部分菜单头部</li>`
+- Bootstrap框架中下拉菜单默认是**左对齐**，如果你想让下拉菜单相对于父容器右对齐时，可以在“dropdown-menu”上添加一个**“pull-right”**或者**“dropdown-menu-right”**类名
+- 通过为li设定disabled或actvie类名来使得菜单中的选项不能/可以被点击。
+### 按钮组
+- 使用类名为"btn-group"
+- 按钮组和下拉菜单组件一样，需要依赖于button.js插件才能正常运行。不过我们同样可以直接只调用bootstrap.js文件。因为这个文件已集成了button.js插件功能。
+- 通过"btn-group-lg","btn-group-sm","btn-group-xs"来调整大小，这一组的按钮都会变成一样的大小
+- 关于按钮组与下拉菜单的组合：在按钮的样式类名中添加"dropdown-toggle"并且加入data-toggle="dropdown"的属性，就可以在一串按钮组中，将其中一个按钮变为下拉菜单的触发按钮。注意，最好在文字后添加一个`<span class="caret"></span>`用来制作一个向下的小箭头，提示用户可以下拉，营造良好的体验。注意，即使上层是一个"btn-group"，我们在单独做这个按键下拉时，要把这个按键放到一个新的"btn-group"中，在这个新的group中，把我们要做的按键放进去，同时把dropdown-menu放进去即可。比如
+>     <div class="btn-group">
+>     <button class="btn btn-default" type="button">首页</button>
+>     <button class="btn btn-default" type="button">产品展示</button>
+>     <button class="btn btn-default" type="button">案例分析</button>
+>     <button class="btn btn-default" type="button">联系我们</button>
+>     <div class="btn-group">
+>         <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">关于我们<span class="caret"></span></button>
+>     <ul class="dropdown-menu">
+>     	    <li><a href="##">公司简介</a></li>
+>     	    <li><a href="##">企业文化</a></li>
+>     	    <li><a href="##">组织结构</a></li>
+>     	    <li><a href="##">客服服务</a></li>
+>     </ul>
+>     </div>
+***
+- 把按钮组做成垂直的，就是把"btn-group"换成"btn-group-vertical"
+- 做几个按钮平分界面（类似Android中的令各view的layout:weight=1）的效果，就是在"btn-group"后添加"btn-group-justified"类名
+- 注意，若是要把上述点击弹出下拉菜单效果做成“上弹菜单”，只需要在**包裹这个菜单弹出按钮**的"btn-group"后添加"dropup"类名。加在最外层的"btn-group"后是无效的。
+### 导航
+
+- 一般是直接在`<ul>`处直接加"nav",并且我们可以指定"nav-tabs"等样式
+>     <ul class="nav nav-tabs">
+>         <li><a href="##">Home</a></li>
+>         <li><a href="##">CSS3</a></li>
+>  	    <li><a href="##">Sass</a></li>
+>  	    <li><a href="##">jQuery</a></li>
+>      	<li><a href="##">Responsive</a></li>
+>     </ul>
+***
+- 胶囊型导航 "nav-pills"
+- 垂直堆叠的导航栏 "nav nav-pills nav-stacked",同时nav中也支持为li添加"disabled"类来使其变为禁用状态。因为li都是可选中的，也可以为其添加"active"类来变化其样式
+- "nav-justified"用来使得导航栏自适应整个浏览器窗口大小
+- 导航栏二级菜单：只需要将li当作父容器，使用类名“dropdown”，同时在li中嵌套另一个列表ul，使用前面介绍下拉菜单的方法就可以，具体看下面代码
+>     <ul class="nav nav-pills">
+>     <li class="active"><a href="##">首页</a></li>
+>     <li class="dropdown">
+>       <a href="##" class="dropdown-toggle" data-toggle="dropdown">教程<span class="caret"></span></a>
+>       <ul class="dropdown-menu">
+>           <li><a href="##">CSS3</a></li>
+>           <li><a href="##">Sass</a></li>
+>           <li><a href="##">jQuery</a></li>
+>           <li><a href="##">Responsive</a></li>
+>       </ul>
+>     </li>
+>     <li><a href="##">关于我们</a></li>
+>     </ul>
