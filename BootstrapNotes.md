@@ -71,4 +71,30 @@ pre的滚动条 -> class="pre-scrollable"
     </tr>
  	 	</tbody>
 	</table>
-- 加table类就是基础表格
+- 加table类就是基础表格，**一定不能缺少**
+- 在table后加table-striped类名就是斑马线表格
+- table-hover悬浮高亮表格
+- table-condensed紧凑型
+- table-responsive响应式表格
+### 表单
+表单主要功能是用来与用户做交流的一个网页控件，良好的表单设计能够让网页与用户更好的沟通。表单中常见的元素主要包括：文本输入框、下拉选择框、单选按钮、复选按钮、文本域和按钮等。其中每个控件所起的作用都各不相同，而且不同的浏览器对表单控件渲染的风格都各有不同。<br>
+对于基础表单，Bootstrap并未对其做太多的定制性效果设计，仅仅对表单内的fieldset、legend、label标签进行了定制。<br>
+***
+- 输入框input,可以为它加一个"form-control"的属性以保证样式不出错
+- 下拉选择框select，多行选择使用multiple,样式还是用form-control<br>`<select> <option>`
+- 文本域textarea rows属性可以控制输入行数
+- 关于checkbox与radiobutton的话，先都用label包起来，将容器div的类名改为checkbox或radio
+>     <div class="checkbox">
+> 	<label>
+> 	  <input type="checkbox" value="">
+> 	  记住密码
+> 	</label>
+> 	  </div>
+> 	  <div class="radio">
+> 	<label>
+> 	  <input type="radio" name="optionsRadios" id="optionsRadios1" value="love" checked>
+> 	  喜欢
+> 	</label>
+> 	  </div>
+***
+- s
