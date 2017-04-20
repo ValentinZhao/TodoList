@@ -357,3 +357,11 @@ pre的滚动条 -> class="pre-scrollable"
 - 反色导航条：navbar-inverse
 - 分页导航
 - 跟分页类似，还有提供“上一页”，“下一页”的类：**“pager"**，并能在其中的属性设置"previous"、"next"来设置左右对齐
+- 标签 "label label-xxx"(default, primary, success...)
+![](http://img.mukewang.com/53f5a3810001256d05550068.jpg)
+- 徽章，跟标签一样，使用span标签来制作，加入"badge"类
+### 缩略图
+- thumbnail类名
+- 还可以让缩略图配合标题、描述内容，按钮等：在仅有缩略图的基础上，添加了一个div名为“caption“的容器，在这个容器中放置其他内容，比如说标题，文本描述，按钮等
+### 警示框
+- "alert alert-success"，还有info,warning,danger。具体使用的时候，可以在类名为“alert”的div容器里放置提示信息。实现不同类型警示框，只需要在“alert”基础上追加对应的类名
