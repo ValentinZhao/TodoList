@@ -217,6 +217,7 @@ pre的滚动条 -> class="pre-scrollable"
 `<li role="presentation" class="dropdown-header">第一部分菜单头部</li>`
 - Bootstrap框架中下拉菜单默认是**左对齐**，如果你想让下拉菜单相对于父容器右对齐时，可以在“dropdown-menu”上添加一个**“pull-right”**或者**“dropdown-menu-right”**类名
 - 通过为li设定disabled或actvie类名来使得菜单中的选项不能/可以被点击。
+- 总之，比较重要的就是要记住为"data-toggle"设置"dropdown"以及为ul标签设置"dropdown-menu"类名
 ### 按钮组
 - 使用类名为"btn-group"
 - 按钮组和下拉菜单组件一样，需要依赖于button.js插件才能正常运行。不过我们同样可以直接只调用bootstrap.js文件。因为这个文件已集成了button.js插件功能。
@@ -464,7 +465,7 @@ pre的滚动条 -> class="pre-scrollable"
 ***
 ### Bootstrap中的JS插件
 - Bootstrap提供了一个单一的文件，这个文件包含了Bootstrap的所有JavaScript插件，即bootstrap.js（压缩版本：bootstrap.min.js）
-- 动画过渡 为"modal"添加"fade"
+- 动画过渡 为"modal"添加**"fade"**
 - 模态弹出框
 >     <button class="btn btn-primary" type="button">点击我</button>
 >     <div class="modal" id="mymodal">
@@ -506,3 +507,27 @@ pre的滚动条 -> class="pre-scrollable"
 >         </div>
 >     </div>
 ***
+- 还有一些属性
+![](http://img.mukewang.com/544f09480001d6c409000872.jpg)
+### 选项卡
+- Bootstrap框架中的选项卡主要有两部分内容组成：选项卡组件（也就是菜单组件），对应的是 Bootstrap的 nav-tabs），底部可以切换的选项卡面板，在 Bootstrap 中通常 tab-pane 来表示
+![](http://img.mukewang.com/5491296400019ce104700166.jpg)
+![](http://img.mukewang.com/5491298e0001c7ef04680166.jpg)
+>     <!-- 选项卡组件（菜单项nav-tabs）-->
+>     <ul id="myTab" class="nav nav-tabs" role="tablist">
+>         <li class="active"><a href="#bulletin" role="tab" data-toggle="tab">公告</a></li>
+>         <li><a href="#rule" role="tab" data-toggle="tab">规则</a></li>
+>         <li><a href="#forum" role="tab" data-toggle="tab">论坛</a></li>
+> 	    <li><a href="#security" role="tab" data-toggle="tab">安全</a></li>
+> 	    <li><a href="#welfare" role="tab" data-toggle="tab">公益</a></li>
+>     </ul>
+>     <!-- 选项卡面板 -->
+>     <div id="myTabContent" class="tab-content">
+> 	    <div class="tab-pane active" id="bulletin">公告内容面板</div>
+> 	    <div class="tab-pane" id="rule">规则内容面板</div>
+> 	    <div class="tab-pane" id="forum">论坛内容面板</div>
+> 	    <div class="tab-pane" id="security">安全内容面板</div>
+> 	    <div class="tab-pane" id="welfare">公益内容面板</div>
+>     </div>
+***
+- 注意，如果要实现选项卡点击可以切换功能的话，首先要给导航链接设置**"data-toggle"为"tab"**，并且将"data-target"设置为对应内容面板的选择符，一般为ID，对应的面板为"tab-pane"，面板内容统一放在 tab-content 容器中，而且每个内容面板 tab-pane 都需要设置一个独立的选择符（最好是ID）与选项卡中的 data-target 或 href 的值匹配
