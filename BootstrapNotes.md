@@ -365,3 +365,144 @@ pre的滚动条 -> class="pre-scrollable"
 - 还可以让缩略图配合标题、描述内容，按钮等：在仅有缩略图的基础上，添加了一个div名为“caption“的容器，在这个容器中放置其他内容，比如说标题，文本描述，按钮等
 ### 警示框
 - "alert alert-success"，还有info,warning,danger。具体使用的时候，可以在类名为“alert”的div容器里放置提示信息。实现不同类型警示框，只需要在“alert”基础上追加对应的类名
+- 可关闭的警示框：需要在基本警示框“alert”的基础上添加“alert-dismissable”样式，在button标签中加入class="close"类，实现警示框关闭按钮的样式，要确保关闭按钮元素上设置了自定义属性：“data-dismiss="alert"”（因为可关闭警示框需要借助于Javascript来检测该属性，从而控制警示框的关闭）。
+>     <div class="alert alert-success alert-dismissable" role="alert">
+>     <button class="close" type="button" data-dismiss="alert">&times;</button>
+>     恭喜您操作成功！
+>     </div>
+***
+- 警示框内的链接：为警示框内的a标签添加"alert-link"类名
+### 进度条
+- 基本样式，Bootstrap框架中也是按这样的方式实现的，他提供了两个容器，外容器使用“progress”样式，子容器使用“progress-bar”样式。其中progress用来设置进度条的容器样式，而progress-bar用于限制进度条的进度。
+>     <div class="progress">
+>        <div class="progress-bar" style="width:40%"></div>
+>     </div>
+***
+![](http://img.mukewang.com/5418ff230001f9e106680072.jpg)
+***
+- 彩色进度条，添加"progress-bar-xxx"(info,success,warning,danger)
+- 条纹"progress-bar-striped"
+- 动态条纹"progress-bar-striped active"
+- 层叠，注意各部分之和不要超过**100%**
+>     <div class="progress">
+>         <div class="progress-bar progress-bar-success" style="width:20%"></div>
+>         <div class="progress-bar progress-bar-info" style="width:10%"></div>
+>         <div class="progress-bar progress-bar-warning" style="width:30%"></div>
+>         <div class="progress-bar progress-bar-danger" style="width:15%"></div>
+>     </div>
+![](http://img.mukewang.com/5419242a0001b6cc06660074.jpg)
+***
+- 带Label的进度条：只需要在进度条中添加你需要的值
+### 媒体对象
+- 媒体对象一般是成组出现，而一组媒体对象常常包括以下几个部分：媒体对像的容器：常使用“media”类名表示，用来容纳媒体对象的所有内容，媒体对像的对象：常使用“media-object”表示，就是媒体对象中的对象，常常是图片， 媒体对象的主体：常使用“media-body”表示，就是媒体对像中的主体内容，可以是任何元素，常常是图片侧边内容，媒体对象的标题：常使用“media-heading”表示，就是用来描述对象的一个标题，此部分可选。
+![](http://img.mukewang.com/54192bd200016f6306660264.jpg)
+- 媒体对象列表
+>     <ul class="media-list">
+>     <li class="media">
+>         <a class="pull-left" href="#">
+>             <img class="media-object" src=" " alt="...">
+>         </a>
+>         <div class="media-body">
+>             <h4 class="media-heading">Media Header</h4>
+>             <div>…</div>
+>         </div>
+>     </li>
+>     <li class="media">…</li>
+>     <li class="media">…</li>
+>     </ul>
+![](http://img.mukewang.com/5419310600018dfc06590301.jpg)
+***
+### 列表组
+- 基础列表组，看上去就是去掉了列表符号的列表项，并且配上一些特定的样式。在Bootstrap框架中的基础列表组主要包括两个部分：list-group：列表组容器，常用的是ul元素，当然也可以是ol或者div元素，list-group-item：列表项，常用的是li元素，当然也可以是div元素。
+>     <ul class="list-group">
+>         <li class="list-group-item">揭开CSS3的面纱</li>
+> 	    <li class="list-group-item">CSS3选择器</li>
+> 	    <li class="list-group-item">CSS3边框</li>
+> 	    <li class="list-group-item">CSS3背景</li>
+> 	    <li class="list-group-item">CSS3文本</li>
+>     </ul>
+***
+- 带徽章：`<li class="list-group-item">
+		<span class="badge">34</span>Canvas绘图详解
+	</li>`即可
+- 列表组的item实现块状可点击：将ul.list-group使用div.list-group来替换，而li.list-group-item直接用a.list-group-item来替换。这样就可以达到需要的效果
+>     <div class="list-group">
+>     <a href="##" class="list-group-item">图解CSS3</a>
+>     <a href="##" class="list-group-item"><span class="badge">220</span>Sass教程</a>
+>     <a href="##" class="list-group-item">玩转Bootstrap</a>
+>     </div>
+***
+- 自定义列表组： list-group-item-heading：用来定义列表项头部样式， list-group-item-text：用来定义列表项主要内容。
+- active表示选中，disabled表示禁用
+- 彩色列表组，如果你想给列表项添加什么背景色，只需要在“list-group-item”基础上增加对应的类名："list-group-item-xxx"(success,info,warning,danger)
+### 面板
+- 基础面板非常简单，就是一个div容器运用了“panel”样式，产生一个具有边框的文本显示块。由于“panel”不控制主题颜色，所以在“panel”的基础上增加一个控制颜色的主题“panel-default”，另外在里面添加了一个“div.panel-body”来放置面板主体内容
+- 添加头和尾：panel-heading：用来设置面板头部样式， panel-footer：用来设置面板尾部样式。
+>     <div class="panel panel-default">
+>         <div class="panel-heading">图解CSS3</div>
+>         <div class="panel-body">…</div>
+>         <div class="panel-footer">作者：大漠</div>
+>     </div>
+![](http://img.mukewang.com/5419500b00017cc706440219.jpg)
+***
+- 彩色Panel：将外层容器的样式改为"panel-xxx"(primary, success, info, warning, danger)
+![](http://img.mukewang.com/541951700001139606510546.jpg)
+***
+- 面板嵌套表格：一般情况下可以把面板理解为一个区域，在使用面板的时候，都会在panel-body放置需要的内容，可能是图片、表格或者列表等。
+- 面板嵌套列表组
+>     <div class="panel panel-default">
+>     <div class="panel-heading">图解CSS3</div>
+>     <div class="panel-body">…</div>
+>         <ul class="list-group">
+>             <li class="list-group-item">我是列表项</li>
+>             <li class="list-group-item">我是列表项</li>
+>             <li class="list-group-item">我是列表项</li>
+>         </ul>
+>     <div class="panel-footer">作者：大漠</div>
+>     </div>
+![](http://img.mukewang.com/541957ed000127f106440360.jpg)
+***
+### Bootstrap中的JS插件
+- Bootstrap提供了一个单一的文件，这个文件包含了Bootstrap的所有JavaScript插件，即bootstrap.js（压缩版本：bootstrap.min.js）
+- 动画过渡 为"modal"添加"fade"
+- 模态弹出框
+>     <button class="btn btn-primary" type="button">点击我</button>
+>     <div class="modal" id="mymodal">
+>         <div class="modal-dialog">
+>             <div class="modal-content">
+>                 <div class="modal-header">
+> 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+> 				<h4 class="modal-title">模态弹出窗标题</h4>
+> 			</div>
+> 			<div class="modal-body">
+> 				<p>模态弹出窗主体内容</p>
+> 			</div>
+> 			<div class="modal-footer">
+> 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+> 				<button type="button" class="btn btn-primary">保存</button>
+> 			</div>
+> 		    </div><!-- /.modal-content -->
+> 	    </div><!-- /.modal-dialog -->
+>     </div><!-- /.modal -->
+> 	<script>
+>   	$(function(){
+>     	$(".btn").click(function(){
+>       	$("#mymodal").modal("toggle");
+>     	});
+>   	});
+> 	</script>
+![](http://img.mukewang.com/541a3ecc00016cc606940246.jpg)
+***
+- 上述弹出操作，除了用JS控制，也可以直接用"data-target"来触发
+- 模态弹出窗声明，只需要自定义两个必要的属性：**data-toggle**和**data-target**（bootstrap中声明式触发方法一般依赖于这些自定义的data-xxx 属性。比如data-toggle="" 或者 data-dismiss=""）
+>     <!-- 触发模态弹出窗的元素 -->
+>     <button type="button" data-toggle="modal" data-target="#mymodal" class="btn btn-primary">点击我会弹出模态弹出窗</button>
+>     <!-- 模态弹出窗 -->
+>     <div class="modal fade" id="mymodal">
+>         <div class="modal-dialog">
+>             <div class="modal-content">
+>         <!-- 模态弹出窗内容 -->
+>             </div>
+>         </div>
+>     </div>
+***
