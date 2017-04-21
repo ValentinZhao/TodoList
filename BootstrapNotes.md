@@ -167,6 +167,17 @@ pre的滚动条 -> class="pre-scrollable"
 - 关于按钮大小，bootstrap提供了三个类名控制大小。大型：btn-lg，小型：btn-sm，微型：btn-xs
 - 关于按钮的display,默认缺省设置是inline-block，也就是多个按钮可存在于同一行。我们可以手动添加类名"btn-block"使它们分占各行并且占满width
 - 关于按钮的禁用，跟input类似，可以通过给类名添加disabled来禁用，也可以直接添加一个disabled属性，设置为disabled
+- 通过"data-loading-text"属性定义加载的文本信息，之后通过JS为该按钮绑定事件，添加`button("loading")``
+>     $(function(){
+>         $("#loaddingBtn").click(function () {
+>         $(this).button("loading");
+>       });
+>     });
+***
+- 模拟单复选按钮，label嵌套input<br>`<label class="btn btn-primary">
+        <input type="checkbox" name="options" id="options1">电影
+    </label>`
+- 按钮的选中样式：
 ### 图标
 - 一段例子
 >     <span class="glyphicon glyphicon-search"></span>
@@ -373,6 +384,12 @@ pre的滚动条 -> class="pre-scrollable"
 >     </div>
 ***
 - 警示框内的链接：为警示框内的a标签添加"alert-link"类名
+- 写一个按钮样式的关闭按钮：`<a href="#" class="btn btn-danger" data-dismiss="alert">关闭</a>`
+>     $(function(){
+>         $("#close").on("click",function(){
+>             $(this).alert("close");
+>         });
+>     });
 ### 进度条
 - 基本样式，Bootstrap框架中也是按这样的方式实现的，他提供了两个容器，外容器使用“progress”样式，子容器使用“progress-bar”样式。其中progress用来设置进度条的容器样式，而progress-bar用于限制进度条的进度。
 >     <div class="progress">
@@ -531,3 +548,91 @@ pre的滚动条 -> class="pre-scrollable"
 >     </div>
 ***
 - 注意，如果要实现选项卡点击可以切换功能的话，首先要给导航链接设置**"data-toggle"为"tab"**，并且将"data-target"设置为对应内容面板的选择符，一般为ID，对应的面板为"tab-pane"，面板内容统一放在 tab-content 容器中，而且每个内容面板 tab-pane 都需要设置一个独立的选择符（最好是ID）与选项卡中的 data-target 或 href 的值匹配
+- 添加渐变动画是在**tab-pane**类名后直接空一格加上**fade**即可，注意第一个选项卡面板加的是**fade in**
+- 胶囊式选项卡：在Bootstrap除了可以让 nav-tabs 具有选项卡的切换功能之外，还可以对胶囊式 nav-pills 导航也具有选项卡的功能。我们只需要将 **nav-tabs** 换成 **nav-pills**，另外关键一点是将 **data-toggle="tab"**换成**data-toggle="pill"**
+![](http://img.mukewang.com/541a94910001649c06150198.jpg)
+***
+- 选项卡的JS触发
+>     $(function(){
+>         $("#myTab a").click(function(e){
+>             e.preventDefault();
+>             $(this).tab("show");
+>         });
+>     })
+***
+### 提示框
+- 在Bootstrap框架中的提示框，结构非常简单，常常使用的是按钮`<button>`标签或者链接`<a>`标签来制作。
+- 通过 <span style="color:red">title</span> 属性的值来定义提示信息(也可以使用自定义属性 data-original-title 来设置提示信息)
+- 通过  <span style="color:red">data-placement</span>  自定义属性来控制提示信息框的位置，根据四种不同的位置，data-placement具有四个值：top、right、bottom和left，分别表示提示框出现的位置在顶部、右边、底部和左边
+- 还有一个最重要的参数不可缺少，<span style="color:red">data-toggle="tooltip"
+- 提示框只能由JS触发
+>     $(function(){
+>         $('[data-toggle="tooltip"]').tooltip();
+>         $('#myTooltip2').tooltip({
+>           title:"我是一个提示框，我在左部出现",
+>           placement:'left'
+>         });
+>     
+>     });
+***
+### 弹出框
+- 弹出框除了有标题 title 以外还增加了内容 content 部分。这个在提示框中是没有的
+- 弹出框Popover和提示框tooltip相比，就多了一个content内容，那么在此使用 data-content 来定义弹出框中的内容。同样可以使用`<button`>或者`<a>`标签来制作
+>     <button type="button" 
+>         class="btnbtn-default" 
+>         data-container="body" 
+>         data-placement="bottom" 
+>         data-toggle="popover" 
+>         data-original-title="Bootstrap弹出框标题" 
+>         data-content="Bootstrap弹出框的内容" >
+>         猛击我吧
+>     </button>
+>     <a href="#" class="btnbtn-default" 
+>         data-container="body" 
+>         data-placement="right" 
+>         data-toggle="popover" 
+>         title="Bootstrap弹出框标题" 
+>         data-content="Bootstrap弹出框的内容">
+>         猛击我吧
+>     </a>
+***
+- 当然，data-toggle要变为popover,这也是**必需**的一个属性
+### 手风琴效果(collapse)
+- 手风琴最关键的部分，就是每个标题对应有一个内容，在Bootstrap框架中将这两个部分组合起来称为一个panel页板，如右边效果所示，他就有三个panel面板，将这三个面板组合在一起，就是一个面板组合 panel-group，也就是手风琴的结构。
+>     <div class="panel-group" id="accordion">
+>     <div class="panel panel-default">
+>         <div class="panel-heading">
+>             <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">标题一</a></h4>
+>         </div>
+>         <div id="collapseOne" class="panel-collapse collapse in">
+>             <div class="panel-body">标题一对应的内容</div>
+>         </div>
+>     </div>
+>     <div class="panel panel-default">
+>         <div class="panel-heading">
+>             <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">标题二</a></h4>
+>         </div>
+>         <div id="collapseTwo" class="panel-collapse collapse">
+>             <div class="panel-body">标题二对应的内容</div>
+>         </div>
+>     </div>
+>     <div class="panel panel-default">
+>         <div class="panel-heading">
+>             <h4 class="panel-title"><a data-toggle="collapse"data-parent="#accordion"href="#collapseThree">标题三</a></h4>
+>         </div>
+>         <div id="collapseThree" class="panel-collapse collapse">
+>             <div class="panel-body">标题三对应的内容</div>
+>         </div>
+>     </div>
+>     </div>
+***
+- 为了把标题和内容区捆绑在一起，可以通过**锚链接**的方法，把标题区域和面板区连在一起,<span style="color:red">注意h4标签后的a标签中的href与panel-collapse区域的id之间的关系</span>
+>     <div class="panel panel-accordion panel-default">
+>         <div class="panel-heading">
+>             <h4 class="panel-title"><a href="#panel1">标题一</a></h4>
+>         </div>
+>         <div class="panel-collapse" id="panel1">
+>             <div class="panel-body">折叠区内容...</div>
+>         </div>
+>     </div>
+- 控制面板内容区是否可视。在Bootstrap框架中，如果你想让内容区域不可视，只需要在 panel-collapse 样式上添加 collapse
