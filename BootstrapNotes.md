@@ -635,4 +635,63 @@ pre的滚动条 -> class="pre-scrollable"
 >             <div class="panel-body">折叠区内容...</div>
 >         </div>
 >     </div>
+***
 - 控制面板内容区是否可视。在Bootstrap框架中，如果你想让内容区域不可视，只需要在 panel-collapse 样式上添加 collapse
+- 接下来激活手风琴的交互行为:需要在标题链接中自定义两个属性，一个是data-toggle，并且取值为**collapse**；另一个是data-target，取值为各个面板内容区的标识符，比如说ID，在这个例子分别是#panel1、#panel2和#panel3
+- 定义data-parent属性，实现点击一个其中一个元素时，关闭所有的折叠区，再打开所单击的区域（如果所单击区域是展示的，则会关闭）。这个data-parent取值与手风琴面板容器的标识符相匹配，比如这个例子是指 #myAccordion
+### 图片轮播(Carousel)
+- 包括三部分：轮播的图片，轮播图片的计数器，轮播图片的控制器
+>      <div id="myCarousel" class="carousel slide">
+>         <ol class="carousel-indicators">
+>            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+>            <li data-target="#myCarousel" data-slide-to="1"></li>
+>            <li data-target="#myCarousel" data-slide-to="2"></li>
+>         </ol>
+>         <div class="carousel-inner">
+>             <div class="item active">
+>                 <img src="http://images3.c-ctrip.com/rk/201407/ll580x145.jpg" alt="">
+>                 <div class="carousel-caption">
+>                   <h4>标题一</h4>
+>                   <p>图片一内容简介</p>
+>                 </div>
+>             </div>
+>             <div class="item">
+>                 <img src="http://images3.c-ctrip.com/dj/201408/zj/zj_580145.jpg" alt="">
+>                 <div class="carousel-caption">
+>                    <h4>标题二</h4>
+>                    <p>图片二内容简介</p>
+>                 </div>
+>             </div>
+>             <div class="item">
+>             	<img src="http://images3.c-ctrip.com/rk/201403/yfdd580145a.png" alt="">
+>                 <div class="carousel-caption">
+>                   <h4>标题三</h4>
+>                   <p>图片三内容简介</p>
+>                 </div>
+>             </div>
+>       </div>
+>         <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+>         <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+>     </div>
+>     <script>
+>     $('.carousel').carousel()
+>     </script>
+***
+- 设计轮播图片的容器。在 Bootstrap 框架中采用 carousel 样式，并且给这个容器定义一个 ID 值，方便后面采用 data 属性来声明触发
+- 设计轮播图片计数器。在容器 div.carousel 的内部添加轮播图片计算器，采用 carousel-indicators 样式，其主要功能是显示当前图片的播放顺序(有几张图片就放置几个li)，一般采用有顺列表来制作。在 Bootstrap 框架中，轮播图片计数器，都是以**圆点**向大家呈现
+- 设计轮播图片播放区。轮播图整个效果中，播放区是最关键的一个区域，这个区域主要用来放置需要轮播的图片。这个区域使用 carousel-inner 样式来控制，而且其同样放置在 carousel 容器内，并且通过 item 容器来放置每张轮播的图片
+- JS触发相关，使用时，在初始化插件的时候可以传关相关的参数。实际上，当我们给carousel()方法配置参数之后，轮播效果就能自动切换。但 Bootstrap 框架中的 carousel 插件还给使用者提供了几种特殊的调用方法<br>.carousel("cycle")：从左向右循环播放；
+.carousel("pause")：停止循环播放；
+.carousel("number")：循环到指定的帧，下标从0开始，类似数组；
+.carousel("prev")：返回到上一帧；
+.carousel("next")：下一帧
+### Affix-固定定位
+>     <div class="col-xs-3" id="myScrollspy">
+>         <ul class="nav nav-tabs nav-stacked" data-spy="affix" data-offset-top="125">
+>             <li class="active"><a href="#section-1">第一部分</a></li>
+>             <li><a href="#section-2">第二部分</a></li>
+>             <li><a href="#section-3">第三部分</a></li>
+>             <li><a href="#section-4">第四部分</a></li>
+>             <li><a href="#section-5">第五部分</a></li>
+>         </ul>
+>     </div>
