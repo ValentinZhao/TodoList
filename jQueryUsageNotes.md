@@ -14,7 +14,7 @@
 	jQuery.myPlugin = function(){
 		//do something...
 	};
-例如`$.Ajax()`、`$.extend()`,extend()的作用是将用户自定义参数与插件的默认参数合并。<br>
+例如`$.Ajax()`、`$.extend()`,extend()的作用是将用户自定义参数与插件的默认参数合并。其实也就是将后面两个对象中的参数合并到第一个对象中。<br>
 取两位小数 -> **(num / 100).toFixed(2)**
 ***
 - 对象级别组件开发
@@ -46,3 +46,4 @@
 - 绑定键盘事件
 jQuery中用.witch属性和.keyCode属性来确定按下了哪个键；left-37,up-38,right-39,down-40
 ## 关于全屏页面切换效果的实现
+- 先关注几个属性与API，首先是`background-image`,用来规定该页面的背景图片；`backgroud-size:cover`意味着将整张图直接套在背景大小上，该图片可能有些部分不会被展示；`tranform`属性使得该元素可以执行一些类似平移，扭动的动画；`jQuery.data()`方法，有参数时执行赋值，无参数时执行取出值的操作。`jQuery的each()`方法为每个匹配元素执行函数。
