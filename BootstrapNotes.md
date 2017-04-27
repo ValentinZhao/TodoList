@@ -485,31 +485,25 @@ pre的滚动条 -> class="pre-scrollable"
 - Bootstrap提供了一个单一的文件，这个文件包含了Bootstrap的所有JavaScript插件，即bootstrap.js（压缩版本：bootstrap.min.js）
 - 动画过渡 为"modal"添加**"fade"**
 - 模态弹出框
->     <button class="btn btn-primary" type="button">点击我</button>
->     <div class="modal" id="mymodal">
+>     <div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label"
+>          aria-hidden="true">
 >         <div class="modal-dialog">
 >             <div class="modal-content">
 >                 <div class="modal-header">
-> 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-> 				<h4 class="modal-title">模态弹出窗标题</h4>
-> 			</div>
-> 			<div class="modal-body">
-> 				<p>模态弹出窗主体内容</p>
-> 			</div>
-> 			<div class="modal-footer">
-> 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-> 				<button type="button" class="btn btn-primary">保存</button>
-> 			</div>
-> 		    </div><!-- /.modal-content -->
-> 	    </div><!-- /.modal-dialog -->
->     </div><!-- /.modal -->
-> 	<script>
->   	$(function(){
->     	$(".btn").click(function(){
->       	$("#mymodal").modal("toggle");
->     	});
->   	});
-> 	</script>
+>                     <button type="button" class="close" data-dismiss="modal"><span
+>                             aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
+>                     <h4 class="modal-title" id="modal-label">关于</h4>
+>                 </div>
+>                 <div class="modal-body">
+>                     <p>慕课网隶属于北京慕课科技中心(有限合伙)，是一家从事互联网免费教学的网络教育公司。秉承“开拓、创新、公平、分享”的精神，
+>                         将互联网特性全面的应用在教育领域，致力于为教育机构及求学者打造一站式互动在线教育品牌。</p>
+>                 </div>
+>                 <div class="modal-footer">
+>                     <button type="button" class="btn btn-default" data-dismiss="modal">了解了</button>
+>                 </div>
+>             </div>
+>         </div>
+>     </div>
 ![](http://img.mukewang.com/541a3ecc00016cc606940246.jpg)
 ***
 - 上述弹出操作，除了用JS控制，也可以直接用"data-target"来触发
