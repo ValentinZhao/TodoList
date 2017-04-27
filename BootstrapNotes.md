@@ -328,7 +328,7 @@ pre的滚动条 -> class="pre-scrollable"
 - 导航条中的按钮navbar-btn
 ，导航条中的文本navbar-text，
 导航条中的普通链接navbar-link
-- **固定导航条**：只要在<span style="color:red">最外层容器</span>上添加"nav-fixed-top"或者"nav-fixed-bottom"就可以了
+- **固定导航条**：只要在<span style="color:red">最外层容器</span>上添加"navbar-fixed-top"或者"navbar-fixed-bottom"就可以了
 - 响应式导航条，观察如下效果
 ![](http://img.mukewang.com/53eded3b0001db2a06970046.jpg)<br>*宽屏时效果*
 ![](http://img.mukewang.com/53f580af00017ef408720073.jpg)
@@ -372,6 +372,7 @@ pre的滚动条 -> class="pre-scrollable"
 - 标签 "label label-xxx"(default, primary, success...)
 ![](http://img.mukewang.com/53f5a3810001256d05550068.jpg)
 - 徽章，跟标签一样，使用span标签来制作，加入"badge"类
+- <span style="color:red"><b>最后一定要注意的是，要实现下拉菜单还要同时引入jQuery与Bootstrap插件文件！</b></span>
 ### 缩略图
 - thumbnail类名
 - 还可以让缩略图配合标题、描述内容，按钮等：在仅有缩略图的基础上，添加了一个div名为“caption“的容器，在这个容器中放置其他内容，比如说标题，文本描述，按钮等
