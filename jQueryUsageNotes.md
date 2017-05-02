@@ -55,4 +55,6 @@ jQuery中用.witch属性和.keyCode属性来确定按下了哪个键；left-37,u
 		var delta = e.originalEvent.wheelDelta || -e.originalEvent.detail;
 		//do somethings...
 	})
-- sa
+## jQuery API
+- jQuery.map()方法，通过一个函数匹配当前集合中的每个元素,产生一个包含新的jQuery对象。如果你想处理一个简单的数组或对象中，使用jQuery.map()代替。由于返回值是一个jQuery包裹的数组，所以通常会使用get()方法将其转换成普通的数组。.map()方法特别适用于获取或设置元素集合中的值。
+- jQuery.join()方法，join() 方法用于把数组中的所有元素放入一个字符串。元素是通过指定的分隔符进行分隔的。
