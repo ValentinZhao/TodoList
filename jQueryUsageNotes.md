@@ -65,6 +65,9 @@ jQuery中用.witch属性和.keyCode属性来确定按下了哪个键；left-37,u
 2. 移除一个class：`$(".default").removeClass("default ");`
 3. 修改一个class：先增加你要的class，再删掉你不要的
 4. 配合鼠标事件的类修改：比如hover事件，那么就是`$(".default").hover(function(){...})`
+***
+- 为`<form>`表单添加按钮样式，当这个表单要提交的是文件，比如".xls"文件，要在form标签内同时写`<input>`与`<button>`元素，同时input的type为file，可以随意为button设置样式，最后在JS中利用jQuery找到form，再find这两个元素（$.find('input')）、($.find('button'))，将这两个元素的点击事件关联在一起即可完成点击按钮就提交。**注意**，通过将input的class直接改写为btn是无效的。
+- $.text(string)可以为匹配元素设定文本
 ## 关于`location.href`的一些用法
 					self.location.href;
 					window.location.href;
