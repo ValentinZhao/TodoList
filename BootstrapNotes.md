@@ -690,3 +690,5 @@ pre的滚动条 -> class="pre-scrollable"
 >             <li><a href="#section-5">第五部分</a></li>
 >         </ul>
 >     </div>
+## Bootstrap使用笔记
+- Bootstrap元素的禁用：添加：$("#id").attr("disabled","disabled");<br>移除：$("#id").removeAttr("disabled");
