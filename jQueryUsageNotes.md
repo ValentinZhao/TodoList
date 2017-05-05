@@ -69,6 +69,7 @@ jQuery中用.witch属性和.keyCode属性来确定按下了哪个键；left-37,u
 - 为`<form>`表单添加按钮样式，当这个表单要提交的是文件，比如".xls"文件，要在form标签内同时写`<input>`与`<button>`元素，同时input的type为file，可以随意为button设置样式，最后在JS中利用jQuery找到form，再find这两个元素（$.find('input')）、($.find('button'))，将这两个元素的点击事件关联在一起即可完成点击按钮就提交。**注意**，通过将input的class直接改写为btn是无效的。
 - $.text(string)可以为匹配元素设定文本
 - 监听元素发生变化，比如input获得了表单的输入，则$.change(function(){...})，同时还支持手动触发。**必须注意的是**，change调用方法只对<span style="color:red"><b>input,select和textarea标签有作用。</b></span>
+- Object.getOwnPropertyNames(obj)方法可以轮循所有的属性名
 ## 关于`location.href`的一些用法
 					self.location.href;
 					window.location.href;
@@ -93,3 +94,5 @@ jQuery中用.witch属性和.keyCode属性来确定按下了哪个键；left-37,u
 - lacksRole标签，如果当前Subject没有角色将显示body体内容：`<shiro:lacksRole name="abc">用户[<shiro:principal/>]没有角色abc<br/></shiro:lacksRole>  `
 - hasPermission标签
 - lacksPermission标签
+## 前后端交接记录
+- 连接href与某个jsp页面，是通过后台的Controller代码，在requestMapping中添加接口
