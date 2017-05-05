@@ -70,6 +70,7 @@ jQuery中用.witch属性和.keyCode属性来确定按下了哪个键；left-37,u
 - $.text(string)可以为匹配元素设定文本
 - 监听元素发生变化，比如input获得了表单的输入，则$.change(function(){...})，同时还支持手动触发。**必须注意的是**，change调用方法只对<span style="color:red"><b>input,select和textarea标签有作用。</b></span>
 - Object.getOwnPropertyNames(obj)方法可以轮循所有的属性名
+- 修改样式应加上特定的元素，避免全局修改某元素
 ## 关于`location.href`的一些用法
 					self.location.href;
 					window.location.href;
