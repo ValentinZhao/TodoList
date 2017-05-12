@@ -4,19 +4,65 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>VueExec</title>
-	<link rel="stylesheet" href="">
+	<link rel="stylesheet" href="bootstrap.min.css">
 </head>
 <body>
-	<div id="app">
+	<div id="app" class="col-xs-4">
 		<span>{{ text }}</span>
+		<ul>
+			<li v-for="todo in todos"> {{ todo.text }} </li>
+		</ul>
+	</div>
+	<div id="app-1" class="col-xs-4">
+		<span>{{ msg }}</span><br>
+		<input type="text" v-model="msg">
+		<button @click="reverseMsg">Reverse</button>
+	</div>
+	<div id="app-2" class="col-xs-4">
+		<ul>
+			<shop-item v-for="item in shopLists" :item="item"></shop-item>
+		</ul>
 	</div>
 	
-	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="vue.js"></script>
 	<script>
-		var vm = new Vue({
+		Vue.component('shop-item', {
+			props:[ 'item' ],
+			template: "<li>{{ item.text }}</li>"
+		})
+		var vm1 = new Vue({
 			el: '#app',
 			data:{
-				text: "Hello World!"
+				text: "Hello World!",
+				todos:[
+					{text: "mow the lawn"},
+					{text: "walk the dog"},
+					{text: "scratch the wall"}
+				]
+			}
+		});
+
+		var vm2 = new Vue({
+			el: '#app-1',
+			data: {
+				msg: "Hello Vue.js!"
+			},
+			methods:{
+				reverseMsg: function(){
+					this.msg =  this.msg.split('').reverse().join('');
+				}
+			}
+		});
+
+		var vm3 = new Vue({
+			el: '#app-2',
+			data: {
+				shopLists: [
+					{text: "百醇"},
+					{text: "薯片"},
+					{text: "slippers"},
+					{text: "pajamas"}
+				]
 			}
 		});
 	</script>
