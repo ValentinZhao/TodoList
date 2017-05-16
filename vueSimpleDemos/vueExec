@@ -22,7 +22,8 @@
 	<div id="app-2" class="col-xs-4">
 		<ul>
 			<shop-item v-for="item in shopLists" :item="item"></shop-item>
-		</ul>
+		</ul><br>
+		<input type="checkbox" v-model="checked"><label for="checkbox">{{ checked }}</label>
 	</div>
 	
 	<script src="vue.js"></script>
@@ -65,7 +66,8 @@
 					{text: "薯片"},
 					{text: "slippers"},
 					{text: "pajamas"}
-				]
+				],
+				checked: ""
 			}
 		});
 	</script>
