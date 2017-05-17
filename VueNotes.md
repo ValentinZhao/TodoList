@@ -13,6 +13,22 @@
 - 你可以在其它文件或模块中通过import+(常量 | 函数 | 文件 | 模块)名的方式，将其导入，以便能够对其进行使用
 - 在一个文件或模块中，export、import可以有多个，export default仅有一个
 - 通过export方式导出，在导入时要加{ }，export default则不需要
+		1.export
+		//demo1.js
+		export const str = 'hello world'
+		export function f(a){ return a+1}
+		对应的导入方式：
+		
+		//demo2.js
+		import { str, f } from 'demo1' //也可以分开写两次，导入的时候带花括号
+		
+		2.export default
+		//demo1.js
+		export default const str = 'hello world'
+		对应的导入方式：
+		
+		//demo2.js
+		import str from 'demo1' //导入的时候没有花括号
 
 ## 新建一个Vue.js项目
 ### vue-cli
@@ -27,14 +43,15 @@
 6. 使用`cnpm`，即npm的淘宝国内镜像加快安装速度
 7. `cnpm install vue-cli -g`
 8. 通过`vue -V`查看vue版本，顺便验证是否安装成功
-9. 进入对应文件路径下，`vue init webpack xxx`
-10. 在xxx文件路径下`cnpm install`
-11. 通过`npm run dev`就能执行node的dev后台代码
-12. `npm run build`可生成部署文件，生成了`dist`目录
+9. 进入对应文件路径下，`vue init webpack xxx`,这个`webpack`是创建的项目的模板名
+10. 在xxx文件路径下`cnpm install`，安装项目所需的依赖
+11. 通过`npm run dev`就能执行node的dev后台代码，相当于启动项目
+12. `npm run build`可生成部署文件，生成了`dist`目录，之后只要把`dist`文件夹放在服务器上即可完成部署
 13. 程序入口：min.js
-14. ES6导出一个变量：export default {...}
+14. ES6导出一个变量：export default {...}，主要用于导出单文件组件
 15. 安装前端路由`npm install vue-router --save`
 16. 安装之后在入口文件中引入`vue-router`，接着利用全局Vue.use方法使用这个插件，然后写对象关系映射Map，把组件引入到入口文件中，连接起来的关系是组件与路径
 17. 利用`$route.params`取得带着的参数
 18. 安装vuex`npm install vuex --save`
 19. vuex中的action, mutation和state: action通过commit来触发mutation，mutation来更改state，也就是mutation来接收state这个参数。然后action中的逻辑可以是异步的，mutation必须是同步的操作
+20. 如果浏览器打开之后，没有加载出页面，有可能是本地的 8080 端口被占用，需要修改一下配置文件`config/index.js`
