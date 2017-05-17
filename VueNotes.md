@@ -55,3 +55,39 @@
 18. 安装vuex`npm install vuex --save`
 19. vuex中的action, mutation和state: action通过commit来触发mutation，mutation来更改state，也就是mutation来接收state这个参数。然后action中的逻辑可以是异步的，mutation必须是同步的操作
 20. 如果浏览器打开之后，没有加载出页面，有可能是本地的 8080 端口被占用，需要修改一下配置文件`config/index.js`
+## 关于JS的模块化规范
+由于Vue项目是基于webpack构建，那么各部分需要以模块的形式进行封装、调用等，下面介绍一些JS的模块规范。
+### CommonJS
+ CommonJS就是为JS的表现来制定规范，因为js没有模块的功能所以CommonJS应运而生，它希望js可以在任何地方运行，不只是浏览器中。CommonJS定义的模块分为
+
+- {模块引用(require)} 
+- {模块定义(exports)} 
+- {模块标识(module)}
+
+require()用来引入外部模块；exports对象用于导出当前模块的方法或变量，唯一的导出口；module对象就代表模块本身。
+	 //sum.js
+	 exports.sum = function(){...做加操作..};
+	 
+	 //calculate.js
+	 var math = require('sum');
+	 exports.add = function(n){
+	     return math.sum(val,n);
+	 };
+这种写法适合服务端，因为在服务器读取模块都是在本地磁盘，加载速度很快。但是如果在客户端，加载模块的时候有可能出现“假死”状况。比如上面的例子中clock的调用必须等待clock.js请求成功，加载完毕。
+### AMD
+AMD，即 (Asynchronous Module Definition)，这种规范是异步的加载模块，requireJs应用了这一规范。先定义所有依赖，然后在加载完成后的回调函数中执行。
+
+	require(['clock'],function(clock){
+	  clock.start();
+	});
+
+### CMD
+CMD (Common Module Definition), 是seajs推崇的规范，CMD则是依赖就近，用的时候再require。它写起来是这样的：
+
+	define(function(require, exports, module) {
+	   var clock = require('clock');
+	   clock.start();
+	});
+
+AMD和CMD最大的区别是对依赖模块的执行时机处理不同，而不是加载的时机或者方式不同，二者皆为异步加载模块。
+AMD依赖前置，js可以方便知道依赖模块是谁，立即加载；而CMD就近依赖，需要使用把模块变为字符串解析一遍才知道依赖了那些模块，这也是很多人诟病CMD的一点，牺牲性能来带来开发的便利性，实际上解析模块用的时间短到可以忽略。
