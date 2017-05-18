@@ -91,3 +91,57 @@ CMD (Common Module Definition), 是seajs推崇的规范，CMD则是依赖就近�
 
 AMD和CMD最大的区别是对依赖模块的执行时机处理不同，而不是加载的时机或者方式不同，二者皆为异步加载模块。
 AMD依赖前置，js可以方便知道依赖模块是谁，立即加载；而CMD就近依赖，需要使用把模块变为字符串解析一遍才知道依赖了那些模块，这也是很多人诟病CMD的一点，牺牲性能来带来开发的便利性，实际上解析模块用的时间短到可以忽略。
+
+## 关于Vue-router
+[官方教程](https://router.vuejs.org/zh-cn/essentials/getting-started.html)<br>
+下面是一段示例代码：<br>
+HTML
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+	<div id="app">
+	  <p>
+	    <router-link to="/user/foo">/user/foo</router-link>
+	    <router-link to="/user/foo/profile">/user/foo/profile</router-link>
+	    <router-link to="/user/foo/posts">/user/foo/posts</router-link>
+	  </p>
+	  <router-view></router-view>
+	</div>
+
+Vue
+
+	const User = {
+	  template: `
+	    <div class="user">
+	      <h2>User {{ $route.params.id }}</h2>
+	      <router-view></router-view>
+	    </div>
+	}
+	
+	const UserHome = { template: '<div>Home</div>' }
+	const UserProfile = { template: '<div>Profile</div>' }
+	const UserPosts = { template: '<div>Posts</div>' }
+	
+	const router = new VueRouter({
+	  routes: [
+	    { path: '/user/:id', component: User,
+	      children: [
+	        // UserHome will be rendered inside User's <router-view>
+	        // when /user/:id is matched
+	        { path: '', component: UserHome },
+					
+	        // UserProfile will be rendered inside User's <router-view>
+	        // when /user/:id/profile is matched
+	        { path: 'profile', component: UserProfile },
+	
+	        // UserPosts will be rendered inside User's <router-view>
+	        // when /user/:id/posts is matched
+	        { path: 'posts', component: UserPosts }
+	      ]
+	    }
+	  ]
+	})
+
+	const app = new Vue({ router }).$mount('#app')
+
