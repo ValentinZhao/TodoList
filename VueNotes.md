@@ -145,3 +145,27 @@ Vue
 
 	const app = new Vue({ router }).$mount('#app')
 
+### 命名路由
+有时候，通过一个名称来标识一个路由显得更方便一些，特别是在链接一个路由，或者是执行一些跳转的时候。你可以在创建 Router 实例的时候，在 routes 配置中给某个路由设置名称。
+
+	const router = new VueRouter({
+	  routes: [
+	    {
+	      path: '/user/:userId',
+	      name: 'user',
+	      component: User
+	    }
+	  ]
+	})
+要链接到一个命名路由，可以给 router-link 的 to 属性传一个对象：
+	
+	<router-link :to="{ name: 'user', params: { userId: 123 }}">User</router-link>
+这跟代码调用 router.push() 是一回事：
+
+	router.push({ name: 'user', params: { userId: 123 }})
+这两种方式都会把路由导航到 /user/123 路径。
+
+### 重命名与别名
+『重定向』的意思是，当用户访问 /a时，URL 将会被替换成 /b，然后匹配路由为 /b，那么『别名』又是什么呢？
+
+/a 的别名是 /b，意味着，当用户访问 /b 时，URL 会保持为 /b，但是路由匹配则为 /a，就像用户访问 /a 一样。
