@@ -9,6 +9,7 @@
 - Vue的计算属性是基于他们的依赖进行**缓存**的，所以在mustache语法中，写一个计算属性中的方法名或直接显式调用一个方法的区别便在于此：只要计算属性绑定的依赖没有改变，那么每次调用计算属性都会立即得出结果而不会重新执行函数
 - Vue的列表渲染`v-for`利用了类似for..in语法，并且也支持为item直接添加第二个参数，这个参数是index：`(item, index) in items`。props里面的属性，才可以在组件中利用v-bind的方式获得父元素传来的数据
 ### 在ES6中export default与export的区别
+- [阮一峰的ECMAScript6入门-Module篇](http://es6.ruanyifeng.com/#docs/module)
 - export与export default均可用于导出常量、函数、文件、模块等
 - 你可以在其它文件或模块中通过import+(常量 | 函数 | 文件 | 模块)名的方式，将其导入，以便能够对其进行使用
 - 在一个文件或模块中，export、import可以有多个，export default仅有一个
