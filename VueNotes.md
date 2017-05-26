@@ -177,5 +177,28 @@ Vue
 
 1. Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。
 2. 你不能直接改变 store 中的状态。改变 store 中的状态的唯一途径就是显式地提交(commit) mutations。这样使得我们可以方便地跟踪每一个状态的变化，从而让我们能够实现一些工具帮助我们更好地了解我们的应用。
+3. 通过在根实例中注册 store 选项，该 store 实例会注入到根组件下的所有子组件中，且子组件能通过 `this.$store` 访问到。
+
+		const app = new Vue({
+		  el: '#app',
+		  // 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
+		  store,
+		  components: { Counter },
+		  template: `
+		    <div class="app">
+		      <counter></counter>
+		    </div>
+		  `
+		})
+		***********************************
+		//更新Counter的实现
+		const Counter = {
+		  template: `<div>{{ count }}</div>`,
+		  computed: {
+		    count () {
+		      return this.$store.state.count
+		    }
+		  }
+		}
 3. 当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用 `mapState` 辅助函数帮助我们生成计算属性，让你少按几次键
 
