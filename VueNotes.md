@@ -202,3 +202,34 @@ Vue
 		}
 3. 当一个组件需要获取多个状态时候，将这些状态都声明为计算属性会有些重复和冗余。为了解决这个问题，我们可以使用 `mapState` 辅助函数帮助我们生成计算属性，让你少按几次键
 
+		// 在单独构建的版本中辅助函数为 Vuex.mapState
+		import { mapState } from 'vuex'
+		
+		export default {
+		  // ...
+		  computed: mapState({
+		    // 箭头函数可使代码更简练
+		    count: state => state.count,//这里相当于把state中的count取出来给count属性
+		
+		    // 传字符串参数 'count' 等同于 `state => state.count`
+		    countAlias: 'count',
+		
+		    // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+		    countPlusLocalState (state) {
+		      return state.count + this.localCount
+		    }
+		  })
+		}
+## Vue+Vue-router+Vuex全家桶架构理解
+以`movie.js`为例，在Vuex的`index.js`中分好模块（一般用于较复杂应用）
+
+- M层：我理解为就是对应的`Movie.js`，它import了Vue，对应的是一个
+
+		movie:{
+			state:{...}
+			mutation:{...}
+			action:{...}
+		}
+的形式，相当于一个实体数据类Javabean。分别用const来实现各部分。
+- VM层：也就是view，对应MovieView.vue，在V层利用Vue单文件组件，同时由于引入mapState状态得以保存并修改。state原本就保存有movie,book,activities等（在index.js中）。movie中的topMovies肯定是在M层赋得值，具体实现是通过tag...
+- V层：各个组件搭起来的部分，在该层中你可以看到各个组件比如scrollbar，在V层通过this.$store.dispatch来调用M层方法，也就是获取数据，如getMovie实际上是M层设置的方法
