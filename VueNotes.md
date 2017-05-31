@@ -220,6 +220,69 @@ Vue
 		    }
 		  })
 		}
+4. 新建一个 ‘src/store/index.js’这个文件的内容如下：
+
+		import Vue from "vue";          //引入vue
+		import Vuex from "vuex";        //引入vuex
+		Vue.use(Vuex);                  //增加vuex功能
+		export default new Vuex.Store({  //此文件直接export
+		                                //出去一个实例化好的 Vuex.Store
+		    state: {
+		        messages: [ 
+		            {
+		                key: tool.getTimestamp(), //列表key
+		                type: USER_TYPE.ROBOT, //类型
+		                value: '你好，您有什么需要，可以直接和我对话😁', //内容
+		                userId: '' //信息发送者
+		            }
+		        ],
+		        userId: xxxxx,
+		        loading: flase
+		    },
+		    getters: {
+		        getMessages: state => {
+		            return state.messages || [];
+		        },
+		        getUserId: state => {
+		            return state.userId;
+		        }
+		    },
+		    mutations: {
+		        pushMassages: (state, message) => {
+		            state.messages.push(message);
+		        },
+		        clearMassages: state => {
+		            state.massages = [];
+		        },
+		        setLoading: (state, loading) => {
+		            state.loading = loading;
+		        }
+		    },
+		    actions: {
+		        pushMassages: ({
+		            commit
+		        }, message) => {
+		            return new Promise(function(resolve, reject) {
+		                commit("pushMassages", message);
+		                resolve();
+		            });
+		        },
+		        clearMassages: ({
+		            commit
+		        }) => {
+		            return new Promise(function(resolve, reject) {
+		                commit("clearMassages");
+		                resolve();
+		            });
+		        },
+		    }
+		});
+一个vuex的store，主要四个属性：
+state：就是数据，所有的组件所需要的数据，都在state里
+getters：组件获取state里的数据可以通过store.state.xx, 但是这样如果还需要一些额外的处理，还得单独处理，所以在getters里统一处理一下东西，用的时候直接从 getters里拿数据
+mutations：mutations里是对 state的一些操作，vuex所有对state的操作都必须通过 ‘mutations’，mutations的操作都是同步的！
+actions： actions也是操作state的数据而诞生的，你会疑问：‘不是已经有mutations了吗？’，刚才说了mutations只能同步操作state，actions就是为异步操作state诞生的，可以把一些异步接口之后操作state的行为放到 actions里做。actions里的方法可以返回一个promise对象。
+5. ‘src/store/index.js’写好以后，就是在’src/main.js’ 应用vuex
 ## Vue+Vue-router+Vuex全家桶架构理解
 以`movie.js`为例，在Vuex的`index.js`中分好模块（一般用于较复杂应用）
 
