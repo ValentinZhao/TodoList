@@ -30,7 +30,35 @@
 		
 		//demo2.js
 		import str from 'demo1' //导入的时候没有花括号
+### ES6中的参数解构
+首先是一个参数解构的代码段
 
+	var sayHello = function({ name, surname }) {
+	  console.log(`Hello ${name} ${surname}! How are you?`);
+	};
+	
+	sayHello({ name: 'John', surname: 'Smith' })
+	// -> Hello John Smith! How are you?
+这对于接收可选参数的函数，是很棒的。对于这种用法，你也可以添加默认参数值来填充调用者没有传递或忘记传递的参数值：
+
+	var sayHello2 = function({ name = "Anony", surname = "Moose" } = {}) {
+	  console.log(`Hello ${name} ${surname}! How are you?`);
+	};
+= {}表示此参数需要解构的默认对象是一个{}，以防调用者忘记传值，或传递了一个错误类型（大多情况为后者）。
+#### 参数处理
+
+对于普通的解构，如果输入的参数与函数指定的对象参数不符，所有不符的参数都将为undefined，所以你需要增加代码来正确的处理这些情况,更糟糕的，如果没有传递需要解构的的参数，将会抛出错误，这可能使你的应用崩溃。为解构增加默认参数基本上解决了上面的所有问题：
+
+	var sayHelloTimes2 = function({ name = "Anony", surname = "Moose" } = {}, times) {
+	  console.log(`Hello ${name} ${surname}! I've seen you ${times} times before.`);
+	};
+	
+	sayHelloTimes2({ name: "Pam" }, 5678)
+	// -> Hello Pam Moose! I've seen you 5678 times before.
+	sayHelloTimes2(5678)
+	// -> Hello Anony Moose! I've seen you undefined times before.
+	sayHelloTimes2()
+	// -> Hello Anony Moose! I've seen you undefined times before.
 ## 新建一个Vue.js项目
 ### vue-cli
 - 快速搭建项目的脚手架工具，需要Node.js > 4.x, npm, 以及一个可以执行node.js的命令行工具
@@ -283,6 +311,15 @@ getters：组件获取state里的数据可以通过store.state.xx, 但是这样�
 mutations：mutations里是对 state的一些操作，vuex所有对state的操作都必须通过 ‘mutations’，mutations的操作都是同步的！
 actions： actions也是操作state的数据而诞生的，你会疑问：‘不是已经有mutations了吗？’，刚才说了mutations只能同步操作state，actions就是为异步操作state诞生的，可以把一些异步接口之后操作state的行为放到 actions里做。actions里的方法可以返回一个promise对象。
 5. ‘src/store/index.js’写好以后，就是在’src/main.js’ 应用vuex
+
+		import Vue from 'vue'
+		import App from './App'
+		import store from "./store"; //引入store的配置
+		/* eslint-disable no-new */
+		new Vue({
+		    store, //应用配置
+		    render: h => h(App)
+		}).$mount("#app");
 ## Vue+Vue-router+Vuex全家桶架构理解
 以`movie.js`为例，在Vuex的`index.js`中分好模块（一般用于较复杂应用）
 
