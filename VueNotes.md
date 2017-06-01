@@ -59,6 +59,23 @@
 	// -> Hello Anony Moose! I've seen you undefined times before.
 	sayHelloTimes2()
 	// -> Hello Anony Moose! I've seen you undefined times before.
+### Vue中父组件子组件消息交互
+父组件通过`props`来向下传递，子组件通过this.$emit来向上触发事件，我们举一个例子：
+
+	//父组件
+	<header-bar @showTalion="open"></header-bar>
+	...
+	methods: {
+    open: function () {
+      this.talion = 'open'
+    }
+	//子组件
+	<span class="talion" @click="showTalion"></span>
+	methods: {
+    showTalion: function () {
+      this.$emit('showTalion')
+      }
+  	}
 ## 新建一个Vue.js项目
 ### vue-cli
 - 快速搭建项目的脚手架工具，需要Node.js > 4.x, npm, 以及一个可以执行node.js的命令行工具
@@ -332,4 +349,4 @@ actions： actions也是操作state的数据而诞生的，你会疑问：‘不
 		}
 的形式，相当于一个实体数据类Javabean。分别用const来实现各部分。
 - VM层：也就是view，对应MovieView.vue，在V层利用Vue单文件组件，同时由于引入mapState状态得以保存并修改。state原本就保存有movie,book,activities等（在index.js中）。movie中的topMovies肯定是在M层赋得值，具体实现是通过tag...
-- V层：各个组件搭起来的部分，在该层中你可以看到各个组件比如scrollbar，在V层通过this.$store.dispatch来调用M层方法，也就是获取数据，如getMovie实际上是M层设置的方法
+- V层：各个组件搭起来的部分，在该层中你可以看到各个组件比如scrollbar，在V层通过this.$store.dispatch来调用M层方法，也就是获取数据，如getMovie实际上是M层设置的方法。实际上是通过dispatch来提交mutation来改变状态
