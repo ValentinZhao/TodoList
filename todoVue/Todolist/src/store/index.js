@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    todoList
+    todoList: null
   },
   getters: {
     getTodoList: state => {
@@ -15,6 +15,16 @@ export default new Vuex.Store({
   mutations: {
     setTodoList: (state, todoList) => {
       state.todoList = todoList
+    }
+  },
+  actions: {
+    setTodoList: ({
+      commit
+    }, todoList) => {
+      return new Promise(function (resolve, reject) {
+        commit('setTodoList', todoList)
+        resolve()
+      })
     }
   }
 })
