@@ -19,7 +19,7 @@
                     <span class="finish_btn_content">{{ finished }}<br>>>>></span>
                 </div>
                 <div class="clear_cache_btn" @click="clearCache">
-                    <span class="clear_cache_btn_content" v-html="clearCache"></span>
+                    <span class="clear_cache_btn_content" v-html="clearCacheText"></span>
                 </div>
             </div>
             <div class="event_finished">
@@ -48,7 +48,7 @@
         add: 'ADD',
         myMessage: '',
         finished: '已完成',
-        clearCache: '清除<br>缓存',
+        clearCacheText: '清除<br>缓存',
         htmlWarning1: '在输入框内输入你要完成的事件，点击<b>“ADD”</b>即可将事件加入下方<b>左侧</b>的事件框内',
         htmlWarning2: '刚开始加入的事件都是“未完成事件”，<b>“编辑”</b>按钮可以让你重新编辑该事件，<b>“删除”</b>按钮则删掉本条事件',
         htmlWarning3: '勾选某个事件即可使其变为“已完成事件”状态，但要注意点击屏幕中央的<b>“已完成”</b>按钮来将其加入到右侧“已完成事件”框体内',
@@ -90,15 +90,19 @@
         var delTd = document.createElement('td')
         var span = document.createElement('span')
         span.className = 'delete_item_btn'
-        span.onclick = this.deleteItem
+        span.onclick = (tr) => {
+          this.deleteItem(tr)
+        }
         span.innerHTML = '删除'
         editSpan.className = 'edit_item_btn'
-        editSpan.onclick = this.editItem
+        editSpan.onclick = (editSpan) => {
+          this.editItem(editSpan)
+        }
         editSpan.innerHTML = '编辑'
         tdContent.setAttribute('type', 'checkbox')
         textTd.style.color = 'red'
         tr.className = 'no_finish_body_text'
-        tdContent.onclick = function tdContentClick () {
+        tdContent.onclick = () => {
           if (tdContent.checked) {
             textTd.style.color = 'green'
             textTd.style.textDecoration = 'line-through'
@@ -117,13 +121,13 @@
         tr.appendChild(delTd)
         return tr
       },
-      deleteItem: function () {
-        var tbody = this.parentElement.parentElement.parentElement
-        var tr = this.parentElement.parentElement
+      deleteItem: function (that) {
+        var tbody = that.srcElement.parentElement.parentElement.parentElement
+        var tr = that.srcElement.parentElement.parentElement
         tbody.removeChild(tr)
       },
       editItem: function (that) {
-        var tr = that.parentElement.parentElement
+        var tr = that.srcElement.parentElement.parentElement
         var textTd = tr.children[1]
         var textSpan = textTd.firstChild
         var text = textSpan.nodeValue
@@ -137,8 +141,10 @@
         var delTd = tr.lastChild
         finishSpan.className = 'finish_edit_item_btn'
         finishSpan.innerHTML = '完成'
-        finishSpan.onclick = this.finishEdit
-        tr.removeChild(that.parentElement)
+        finishSpan.onclick = (finishSpan) => {
+          this.finishEdit(finishSpan)
+        }
+        tr.removeChild(that.srcElement.parentElement)
         finishTd.appendChild(finishSpan)
         tr.insertBefore(finishTd, delTd)
       },
@@ -174,18 +180,18 @@
       clearCache: function () {
         localStorage.clear()
       },
-      finishEdit: function () {
-        var input = this.parentElement.parentElement.children[1].firstChild
-        var editTd = this.parentElement
+      finishEdit: function (that) {
+        var input = that.srcElement.parentElement.parentElement.children[1].firstChild
+        var editTd = that.srcElement.parentElement
         var textTd = input.parentElement
         var span = document.createElement('span')
         var eventName = input.value
         span.className = 'edit_item_btn'
         span.innerHTML = '编辑'
-        span.onclick = this.editItem
-        textTd.removeChild(input)
+        span.onclick = this.editItem(that)
+        textTd.removeChild(textTd.firstElementChild)
         textTd.innerHTML = eventName
-        editTd.removeChild(this)
+        editTd.removeChild(editTd.firstElementChild)
         editTd.appendChild(span)
       }
     }
