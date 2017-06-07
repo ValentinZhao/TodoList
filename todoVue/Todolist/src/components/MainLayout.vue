@@ -2,7 +2,7 @@
 <div>
   <h1>TO-DO List</h1>
         <div class="event_input_zone">
-            <input type="text" class="event_wrapper" id="event_input" v-model="myMessage">
+            <input type="text" class="event_wrapper" id="event_input" v-model="myMessage" @keyup.enter="addEvents">
         </div>
         <div class="event_add_btn" @click="addEvents">
             <span class="event_add_btn_content">{{ add }}</span>
@@ -182,13 +182,13 @@
       },
       finishEdit: function (that) {
         var input = that.srcElement.parentElement.parentElement.children[1].firstChild
-        var editTd = that.srcElement.parentElement
+        var editTd = that.srcElement
         var textTd = input.parentElement
         var span = document.createElement('span')
         var eventName = input.value
         span.className = 'edit_item_btn'
         span.innerHTML = '编辑'
-        span.onclick = this.editItem(that)
+        // span.onclick = this.editItem(span)
         textTd.removeChild(textTd.firstElementChild)
         textTd.innerHTML = eventName
         editTd.removeChild(editTd.firstElementChild)
