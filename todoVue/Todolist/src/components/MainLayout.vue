@@ -28,7 +28,7 @@
                 	</tbody>
                 </table>
             </div>
-            <div class="warning_wrapper">
+            <div class="warning_wrapper" style="text-align:left">
                 <ul>
                     <li v-html="htmlWarning1"></li>
                     <li v-html="htmlWarning2"></li>
@@ -49,7 +49,7 @@
         myMessage: '',
         finished: '已完成',
         clearCacheText: '清除<br>缓存',
-        htmlWarning1: '在输入框内输入你要完成的事件，点击<b>“ADD”</b>即可将事件加入下方<b>左侧</b>的事件框内',
+        htmlWarning1: '在输入框内输入你要完成的事件，点击<b>“ADD”</b>即可将事件加入下方<b>左侧</b>的事件框内，当然也支持<b>回车</b>确认',
         htmlWarning2: '刚开始加入的事件都是“未完成事件”，<b>“编辑”</b>按钮可以让你重新编辑该事件，<b>“删除”</b>按钮则删掉本条事件',
         htmlWarning3: '勾选某个事件即可使其变为“已完成事件”状态，但要注意点击屏幕中央的<b>“已完成”</b>按钮来将其加入到右侧“已完成事件”框体内',
         htmlWarning4: '应注意的是，为了防止误删，我将你的每条记录都缓存了起来，只要你刷新页面（F5键）就可以拿回你所有曾输入的事件，如果你觉得缓存的数据都没有用了，可以选择点击<b>“清除缓存”</b>按钮（清除后也要刷新哦）'
