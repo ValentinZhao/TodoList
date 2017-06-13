@@ -14,3 +14,5 @@
 		  <HelloMessage name="John" />,
 		  document.getElementById('example')
 		);
+要注意一个很重要的应用就是，一个组件的属性可以从组件类的`this.props`对象上获取。
+- 那么React也提供了`this.props.children`属性来将该组件的所有子节点返回
