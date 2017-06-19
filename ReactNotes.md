@@ -41,3 +41,4 @@
 		
 		ReactDOM.render(<Input/>, document.body);
 - 生命周期，Mounting：已插入真实DOM，Updating：正在被重新渲染，Unmounting：已移出真实DOM
+- Ajax，一般可以是配合jQuery的Ajax来写比较方便，但React并没有特别依赖jQuery，自己写原生Ajax或者依赖其他库都是可行的
