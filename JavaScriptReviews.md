@@ -64,4 +64,24 @@
 	})();
 	aaa.b();     //2
 	aaa.c()      //3
+##　微信小程序有关wx.request发送问题
+给服务器发送`POST`请求在微信小程序中可以用`wx.uploadFile`，这种方法的请求头是`mutipart/form`格式的。还有一种情况是利用`wx.request`设置`method`为`POST`，一般我们数据交互是利用json，在文档中也有介绍可以利用`application/json`来请求，不过我们都遇到了500的坑。这时候没办法只得应用另外一个`application/x-www-urlencoded`这种方式来发送POST请求。这种方式在GET方法时是将参数以query string的方式带在请求url之后，在POST是将参数带在form data请求体里，但发送时应给出一个'json'的key，配合json2Form方法首先将json数据的key与value手动编码成符合该请求头需要的格式，再将本json利用JSON.stringify方法转换成字符串发送给后台即可通信
 
+	function json2Form(json) {
+	  var str = [];
+	  for (var p in json) {
+	    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(json[p]));
+	  }
+	  return str.join("&");
+	}
+ 
+代码具体细节不说，主要看发送细节
+
+	...
+	method: 'POST',
+    data: common.json2Form({
+      json: JSON.stringify({
+        'password': password,
+        'userId': username
+      })}),
+	...
