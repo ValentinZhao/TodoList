@@ -85,3 +85,5 @@
         'userId': username
       })}),
 	...
+### 微信小程序的坑
+- wx.request竟然是在wx.getLocation之前调用！就算是写在下面也一样
