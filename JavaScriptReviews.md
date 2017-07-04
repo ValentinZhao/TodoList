@@ -87,3 +87,5 @@
 	...
 ### 微信小程序的坑
 - wx.request竟然是在wx.getLocation之前调用！就算是写在下面也一样
+- JavaScript正则表达式匹配全角空格的Unicode编码为\u3000
+- 不要用Date().toLocaleDateString()方法来获取本地系统时间，尤其用它来做时间格式化的时候，在不同浏览器上获取的时间格式不同，正则未必能校验成功
