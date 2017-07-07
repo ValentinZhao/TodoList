@@ -3,6 +3,7 @@
 
 - [前端面试题1](https://github.com/hawx1993/Front-end-Interview-questions)
 - [前端面试题2](https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions)
+- [某大神2017前端面经](https://juejin.im/post/58cdf9285c497d0057c3b591)
 
 ## 打岔部分
 - [圣杯（固比固、双飞翼）布局](http://www.jianshu.com/p/f9bcddb0e8b4)

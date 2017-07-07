@@ -14,3 +14,17 @@
 	    }
 	};
 方法亮点就是，先直接递归到l1,l2最大的那个值的位置，然后递归回退，l1为空回退l2，反之亦然；在选择判断部分，如果之前是l1为空，说明最大值不在这条链表上，会返回l2，再由于if是按该节点大小来判断进入的，所以这一层返回的链表头是恰好大于l1.next(l2.next)的，完成了链表衔接
+
+## 28.Implement strStr()
+比对字符串
+
+	public int strStr(String haystack, String needle) {
+	  for (int i = 0; ; i++) {
+	    for (int j = 0; ; j++) {
+	      if (j == needle.length()) return i;
+	      if (i + j == haystack.length()) return -1;
+	      if (needle.charAt(j) != haystack.charAt(i + j)) break;
+	    }
+	  }
+	}
+用嵌套循环模拟了两个指针，实现很简洁优雅
