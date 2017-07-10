@@ -28,3 +28,20 @@
 	  }
 	}
 用嵌套循环模拟了两个指针，实现很简洁优雅
+
+## 53.Maximum Subarray
+求数组最长子数组。和是最大的。此题运用动态规划的方式，要解决i处的和，先解决i-1的和并依次循环下来。dp这个数组每轮循环都是保存subarray的和。若上一位的dp元素是小于零的，则不再叠加，代表我们放弃之前取的这个子数组（因为它的和是负数）；那么新的dp[i]其实就是A[i]，表示我们从原数组的第i位重新截取新的subarray。
+
+	public int maxSubArray(int[] A) {
+	        int n = A.length;
+	        int[] dp = new int[n];//dp[i] means the maximum subarray ending with A[i];
+	        dp[0] = A[0];
+	        int max = dp[0];
+	        
+	        for(int i = 1; i < n; i++){
+	            dp[i] = A[i] + (dp[i - 1] > 0 ? dp[i - 1] : 0);
+	            max = Math.max(max, dp[i]);
+	        }
+	        
+	        return max;
+	}
