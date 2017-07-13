@@ -4,6 +4,9 @@
 - 将`<html>`、`<body>`标签设置**height="100%"**
 - overflow:hidden,隐藏滚动条
 - `margin: 0 auto`来设置垂直居中
+## 让一段div可以滚动，比如一段table可以滚动
+- 将这个table用一个div包裹，并将这个div固定宽高，同时设置`overflow:scroll`属性
+- 也要记得将你的主体标签，比如`<table>`设置一个宽高
 # Sass学习笔记
 基本的Sass指导看这篇[官方文档](http://www.sasschina.com/guide/)
 
