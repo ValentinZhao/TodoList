@@ -106,3 +106,8 @@ jQuery中用.witch属性和.keyCode属性来确定按下了哪个键；left-37,u
 整个功能最关键的一点就是<br>
 `setStreet($(this).find("option:selected").attr("key"));`<br>
 这样一行代码的功能。主要就是，我们的数据是类似{key:xxx, value:xxx, parentKey:xxx}的数组，拥有parentKey字段方便我们从二级菜单定位出一级菜单传下来的值，因为一级菜单会传给我们选中的值的key，在二级菜单的处理中，我们的setStreet方法接收到了一级菜单的key，会将这个key与数组中所有类的parentKey属性作比较（forEach），若key与`v.parentKey`相同，则证明拥有parentKey属性的该条数据要被添加至`<option>`中，循环完该组数据即可。那么触发方面的功能，只需要在对应select的jQ对象的change方法中来触发即可。由于事件冒泡机制，我们如果直接将菜单内容append到option中，则不会直接触发下一级的setXXX方法，这时我们可以在option的第一条选项改为“请输入”，来引导用户点击option，触发事件自然就会被调用了。
+
+- 选择某元素的最后一个子元素
+	
+	$('div p:last').addClass("red"); <br>
+	$('div p:last-child').addClass("red");
