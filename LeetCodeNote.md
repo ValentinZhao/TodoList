@@ -73,7 +73,7 @@
 	        }
 	    }
 	}
-##　斐波那契数列求和问题
+##斐波那契数列求和问题
 ## 83. Remove Duplicates from Sorted List
 基本思想是利用递归，先直接进入到链表尾部，比较自己与next，如果相等则返回next，此举的意义在于当我们return的时候，是return给`head.next`的，就完成了当val相等时head.next = head.next.next的操作，删除了head.next本身的值
 
