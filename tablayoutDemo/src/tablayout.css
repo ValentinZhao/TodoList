@@ -1,11 +1,16 @@
+html {
+	font-size: 75px;
+}
+
 #head {
-	width: 8.53333rem;
-	height: 4rem;
+	width: 13.6rem;
+	height: 1.4rem;
     margin: 0 auto;
     position: relative;
     border-bottom: .02667rem solid #e6e8eb;
     overflow: hidden;
-    font-size: 24px;
+    font-size: 0.6rem;
+    padding-top: 0.6rem;
 }
 
 #head li {
