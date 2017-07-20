@@ -1,0 +1,13 @@
+#head {
+	width: 8.53333rem;
+	height: 4rem;
+    margin: 0 auto;
+    position: relative;
+    border-bottom: .02667rem solid #e6e8eb;
+    overflow: hidden;
+    font-size: 24px;
+}
+
+#head li {
+	display: inline;
+}

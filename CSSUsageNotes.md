@@ -40,3 +40,5 @@
 
 ## CSS3 媒体查询
 [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Media_queries)
+## 使用rem
+使用前应先给html设置一个font-size属性，rem的大小就是它的1/10，这样就可以通过媒体查询来根据不同宽度的屏幕来设置这个root的font-size，从而实现适配。

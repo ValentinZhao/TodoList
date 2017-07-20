@@ -92,6 +92,9 @@
 - 不要用Date().toLocaleDateString()方法来获取本地系统时间，尤其用它来做时间格式化的时候，在不同浏览器上获取的时间格式不同，正则未必能校验成功
 - 不要随便给view设置width！！！
 
+##关于类Android Tablayout+ViewPager的移动端组件实现原理
+这样的一个组件其实不难，结合Hammer.js来实现手势识别是很容易的。关键是有一个技术点，就是滑动下部pager页时，我希望上面的tab条也跟着移动。这需要我在左滑右滑(hammer的swipeleft,swiperight事件)中，以自己的index做参量，乘以一个步长，这个步长由我的index与字体大小的商来决定；有了这个步长我就可以设置我在左滑右滑到指定位置时，我应该利用margin-left设置的负值使得这个tab条移动多少：负值越小，则越向右，vice versa。
+
 ## Node.js笔记
 ###基本模块
 - global，Node.js环境的唯一全局变量，像浏览器的window
@@ -168,7 +171,7 @@ Node.js不断执行响应事件的JavaScript函数，直到没有任何响应事
 		} catch (err) {
 		    // 出错了
 		}
-写文件，通过`fs.writeFile()`实现
+写文件，通过`fs.writeFile()`实现;同步方法也是`writeFileSync`
 
 		var fs = require('fs');
 		
@@ -183,4 +186,30 @@ Node.js不断执行响应事件的JavaScript函数，直到没有任何响应事
 		        console.log('ok.');
 		    }
 		});
+- stat，如果我们要获取文件大小，创建时间等信息，可以使用fs.stat()，它返回一个Stat对象，能告诉我们文件或目录的详细信息：
+var fs = require('fs');
 
+		fs.stat('sample.txt', function (err, stat) {
+		    if (err) {
+		        console.log(err);
+		    } else {
+		        // 是否是文件:
+		        console.log('isFile: ' + stat.isFile());
+		        // 是否是目录:
+		        console.log('isDirectory: ' + stat.isDirectory());
+		        if (stat.isFile()) {
+		            // 文件大小:
+		            console.log('size: ' + stat.size);
+		            // 创建时间, Date对象:
+		            console.log('birth time: ' + stat.birthtime);
+		            // 修改时间, Date对象:
+		            console.log('modified time: ' + stat.mtime);
+		        }
+		    }
+		});
+
+由于Node环境执行的JavaScript代码是服务器端代码，所以，绝大部分需要在服务器运行期反复执行业务逻辑的代码，必须使用异步代码，否则，同步代码在执行时期，服务器将停止响应，因为JavaScript只有一个执行线程。
+
+服务器启动时如果需要读取配置文件，或者结束时需要写入到状态文件时，可以使用同步代码，因为这些代码只在启动和结束时执行一次，不影响服务器正常运行时的异步执行。
+
+- stream，
