@@ -91,3 +91,96 @@
 - JavaScript正则表达式匹配全角空格的Unicode编码为\u3000
 - 不要用Date().toLocaleDateString()方法来获取本地系统时间，尤其用它来做时间格式化的时候，在不同浏览器上获取的时间格式不同，正则未必能校验成功
 - 不要随便给view设置width！！！
+
+## Node.js笔记
+###基本模块
+- global，Node.js环境的唯一全局变量，像浏览器的window
+
+	&gt; global.console<br>
+	Console {
+	  log: [Function: bound ],
+	  info: [Function: bound ],
+	  warn: [Function: bound ],
+	  error: [Function: bound ],
+	  dir: [Function: bound ],
+	  time: [Function: bound ],
+	  timeEnd: [Function: bound ],
+	  trace: [Function: bound trace],
+	  assert: [Function: bound ],
+	  Console: [Function: Console] }
+
+- process也是Node.js提供的一个对象，它代表当前Node.js进程。通过process对象可以拿到许多有用信息
+
+	> process === global.process;
+	true
+	> process.version;
+	'v5.2.0'
+	> process.platform;
+	'darwin'
+	> process.arch;
+	'x64'
+	> process.cwd(); //返回当前工作目录
+	'/Users/michael'
+	> process.chdir('/private/tmp'); // 切换当前工作目录
+	undefined
+	> process.cwd();
+	'/private/tmp'
+
+Node.js不断执行响应事件的JavaScript函数，直到没有任何响应事件的函数可以执行时，Node.js就退出了。如果我们想要在下一次事件响应中执行代码，可以调用`process.nextTick()`
+
+	// process.nextTick()将在下一轮事件循环中调用:
+	process.nextTick(function () {
+	    console.log('nextTick callback!');
+	});
+	console.log('nextTick was set!');
+用Node执行上面的代码,得到结果是
+
+	nextTick was set!
+	nextTick callback!
+- 判断JavaScript运行环境
+
+		if(typeof(window) === 'undefined'){
+			console.log('node');
+		} else {
+			console.log('browser');
+		}
+###其他模块
+- fs模块，Node.js内置的fs模块就是文件系统模块，负责读写文件。
+异步读文件代码如下
+
+		'use strict';
+		
+		var fs = require('fs');
+		
+		fs.readFile('sample.txt', 'utf-8', function (err, data) {
+		    if (err) {
+		        console.log(err);
+		    } else {
+		        console.log(data);
+		    }
+		});
+当正常读取时，err参数为null，data参数为读取到的String。当读取发生错误时，err参数代表一个错误对象，data为undefined。这也是Node.js标准的回调函数：第一个参数代表错误信息，第二个参数代表结果。
+同步读文件
+
+		try {
+		    var data = fs.readFileSync('sample.txt', 'utf-8');
+		    console.log(data);
+		} catch (err) {
+		    // 出错了
+		}
+写文件，通过`fs.writeFile()`实现
+
+		var fs = require('fs');
+		
+		var data = 'Hello, Node.js';
+		//writeFile()的参数依次为文件名、数据和回调函数。
+		//如果传入的数据是String，默认按UTF-8编码写入文本文件，如果传入的参数是Buffer，则写入的是二进制文件。
+		//回调函数由于只关心成功与否，因此只需要一个err参数。
+		fs.writeFile('output.txt', data, function (err) {
+		    if (err) {
+		        console.log(err);
+		    } else {
+		        console.log('ok.');
+		    }
+		});
+
