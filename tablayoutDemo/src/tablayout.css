@@ -1,9 +1,10 @@
 html {
 	font-size: 75px;
+	overflow: hidden;
 }
 
-#head {
-	width: 13.6rem;
+#header {
+	width: 8.53333rem;
 	height: 1.4rem;
     margin: 0 auto;
     position: relative;
@@ -13,6 +14,12 @@ html {
     padding-top: 0.6rem;
 }
 
-#head li {
+#header-list {
+	width: 19.6rem;
+	overflow: hidden;
+	font-size: .7rem;
+}
+
+#header-list li {
 	display: inline;
 }

@@ -9,6 +9,9 @@
 - [圣杯（固比固、双飞翼）布局](http://www.jianshu.com/p/f9bcddb0e8b4)
 - [浏览器内核差异](http://www.cnblogs.com/imwtr/p/4481092.html)
 
+##实用库、插件记录
+- [Hammer.js](http://hammerjs.github.io/api/)！轻量级的手势库
+
 ## 闭包（Closure）
   闭包 是指有权访问另一个函数作用域中的变量的函数，创建闭包的**最常见**的方式就是在一个函数内创建另一个函数，通过另一个函数访问这个函数的局部变量
 

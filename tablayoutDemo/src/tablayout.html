@@ -12,21 +12,29 @@
 </head>
 <body>
 	<!-- 选项卡组件（菜单项nav-tabs）-->
-	<ul id="head" class="nav nav-tabs" role="tablist">
-	    <li class="active"><a href="#bulletin" role="tab" data-toggle="tab">员工管理</a></li>
-	    <li><a href="#rule" role="tab" data-toggle="tab">招聘管理</a></li>
-	    <li><a href="#forum" role="tab" data-toggle="tab">排班考勤</a></li>
-	    <li><a href="#security" role="tab" data-toggle="tab">薪酬社保</a></li>
-	    <li><a href="#welfare" role="tab" data-toggle="tab">审批公告</a></li>
-	    <li><a href="#other1" role="tab" data-toggle="tab"组织权限></a></li>
-	</ul>
+	<div class="pager-wrapper">
+		<div class="header">
+			<ul id="header-list" class="nav nav-tabs" role="tablist">
+			    <li class="active"><a href="#bulletin" role="tab" data-toggle="tab">员工管理</a></li>
+			    <li><a href="#rule" role="tab" data-toggle="tab">招聘管理</a></li>
+			    <li><a href="#forum" role="tab" data-toggle="tab">排班考勤</a></li>
+			    <li><a href="#security" role="tab" data-toggle="tab">薪酬社保</a></li>
+			    <li><a href="#welfare" role="tab" data-toggle="tab">审批公告</a></li>
+			    <li><a href="#other1" role="tab" data-toggle="tab">组织权限</a></li>
+			</ul>
+		</div>
 	<!-- 选项卡面板 -->
-	<div id="content" class="tab-content">
-	    <div class="tab-pane active" id="bulletin">公告内容面板</div>
-	    <div class="tab-pane" id="rule">规则内容面板</div>
-	    <div class="tab-pane" id="forum">论坛内容面板</div>
-	    <div class="tab-pane" id="security">安全内容面板</div>
-	    <div class="tab-pane" id="welfare">公益内容面板</div>
+		<div class="content">
+			<div id="content-pane" class="tab-content">
+		    <div class="tab-pane active" id="bulletin">公告内容面板</div>
+		    <div class="tab-pane" id="rule">规则内容面板</div>
+		    <div class="tab-pane" id="forum">论坛内容面板</div>
+		    <div class="tab-pane" id="security">安全内容面板</div>
+		    <div class="tab-pane" id="welfare">公益内容面板</div>
+		</div>
+		<div class="footer">
+			
+		</div>
 	</div>
 	<script src="../lib/jquery-1.11.1.min.js"></script>
 	<script src="../lib/bootstrap.min.js"></script>
