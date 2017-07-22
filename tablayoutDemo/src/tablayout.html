@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+	<title>CustomTabLayout</title>
+	<!-- <link rel="stylesheet" href="../lib/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="tablayout.css">
+	
+</head>
+<body>
+	<!-- 选项卡组件（菜单项nav-tabs）-->
+	<div class="pager-wrapper">
+		<div class="header">
+			<ul id="header-list" class="nav nav-tabs" role="tablist">
+			    <li class="active"><a href="#bulletin" role="tab" data-toggle="tab">员工管理</a></li>
+			    <li><a href="#rule" role="tab" data-toggle="tab">招聘管理</a></li>
+			    <li><a href="#forum" role="tab" data-toggle="tab">排班考勤</a></li>
+			    <li><a href="#security" role="tab" data-toggle="tab">薪酬社保</a></li>
+			    <li><a href="#welfare" role="tab" data-toggle="tab">审批公告</a></li>
+			    <li><a href="#other1" role="tab" data-toggle="tab">组织权限</a></li>
+			</ul>
+		</div>
+	<!-- 选项卡面板 -->
+		<div class="content">
+			<div id="content-pane" class="tab-content">
+		    <div class="tab-pane active" id="bulletin">公告内容面板</div>
+		    <div class="tab-pane" id="rule">规则内容面板</div>
+		    <div class="tab-pane" id="forum">论坛内容面板</div>
+		    <div class="tab-pane" id="security">安全内容面板</div>
+		    <div class="tab-pane" id="welfare">公益内容面板</div>
+		</div>
+		<div class="footer">
+			
+		</div>
+	</div>
+	<script src="../lib/jquery-1.11.1.min.js"></script>
+	<script src="../lib/bootstrap.min.js"></script>
+	<script src="../lib/hammer.min.js"></script>
+	<script src="tablayout.js"></script>
+</body>
+</html>

@@ -9,6 +9,9 @@
 - [圣杯（固比固、双飞翼）布局](http://www.jianshu.com/p/f9bcddb0e8b4)
 - [浏览器内核差异](http://www.cnblogs.com/imwtr/p/4481092.html)
 
+##实用库、插件记录
+- [Hammer.js](http://hammerjs.github.io/api/)！轻量级的手势库
+
 ## 闭包（Closure）
   闭包 是指有权访问另一个函数作用域中的变量的函数，创建闭包的**最常见**的方式就是在一个函数内创建另一个函数，通过另一个函数访问这个函数的局部变量
 
@@ -91,3 +94,125 @@
 - JavaScript正则表达式匹配全角空格的Unicode编码为\u3000
 - 不要用Date().toLocaleDateString()方法来获取本地系统时间，尤其用它来做时间格式化的时候，在不同浏览器上获取的时间格式不同，正则未必能校验成功
 - 不要随便给view设置width！！！
+
+##关于类Android Tablayout+ViewPager的移动端组件实现原理
+这样的一个组件其实不难，结合Hammer.js来实现手势识别是很容易的。关键是有一个技术点，就是滑动下部pager页时，我希望上面的tab条也跟着移动。这需要我在左滑右滑(hammer的swipeleft,swiperight事件)中，以自己的index做参量，乘以一个步长，这个步长由我的index与字体大小的商来决定；有了这个步长我就可以设置我在左滑右滑到指定位置时，我应该利用margin-left设置的负值使得这个tab条移动多少：负值越小，则越向右，vice versa。
+
+## Node.js笔记
+###基本模块
+- global，Node.js环境的唯一全局变量，像浏览器的window
+
+	&gt; global.console<br>
+	Console {
+	  log: [Function: bound ],
+	  info: [Function: bound ],
+	  warn: [Function: bound ],
+	  error: [Function: bound ],
+	  dir: [Function: bound ],
+	  time: [Function: bound ],
+	  timeEnd: [Function: bound ],
+	  trace: [Function: bound trace],
+	  assert: [Function: bound ],
+	  Console: [Function: Console] }
+
+- process也是Node.js提供的一个对象，它代表当前Node.js进程。通过process对象可以拿到许多有用信息
+
+	> process === global.process;
+	true
+	> process.version;
+	'v5.2.0'
+	> process.platform;
+	'darwin'
+	> process.arch;
+	'x64'
+	> process.cwd(); //返回当前工作目录
+	'/Users/michael'
+	> process.chdir('/private/tmp'); // 切换当前工作目录
+	undefined
+	> process.cwd();
+	'/private/tmp'
+
+Node.js不断执行响应事件的JavaScript函数，直到没有任何响应事件的函数可以执行时，Node.js就退出了。如果我们想要在下一次事件响应中执行代码，可以调用`process.nextTick()`
+
+	// process.nextTick()将在下一轮事件循环中调用:
+	process.nextTick(function () {
+	    console.log('nextTick callback!');
+	});
+	console.log('nextTick was set!');
+用Node执行上面的代码,得到结果是
+
+	nextTick was set!
+	nextTick callback!
+- 判断JavaScript运行环境
+
+		if(typeof(window) === 'undefined'){
+			console.log('node');
+		} else {
+			console.log('browser');
+		}
+###其他模块
+- fs模块，Node.js内置的fs模块就是文件系统模块，负责读写文件。
+异步读文件代码如下
+
+		'use strict';
+		
+		var fs = require('fs');
+		
+		fs.readFile('sample.txt', 'utf-8', function (err, data) {
+		    if (err) {
+		        console.log(err);
+		    } else {
+		        console.log(data);
+		    }
+		});
+当正常读取时，err参数为null，data参数为读取到的String。当读取发生错误时，err参数代表一个错误对象，data为undefined。这也是Node.js标准的回调函数：第一个参数代表错误信息，第二个参数代表结果。
+同步读文件
+
+		try {
+		    var data = fs.readFileSync('sample.txt', 'utf-8');
+		    console.log(data);
+		} catch (err) {
+		    // 出错了
+		}
+写文件，通过`fs.writeFile()`实现;同步方法也是`writeFileSync`
+
+		var fs = require('fs');
+		
+		var data = 'Hello, Node.js';
+		//writeFile()的参数依次为文件名、数据和回调函数。
+		//如果传入的数据是String，默认按UTF-8编码写入文本文件，如果传入的参数是Buffer，则写入的是二进制文件。
+		//回调函数由于只关心成功与否，因此只需要一个err参数。
+		fs.writeFile('output.txt', data, function (err) {
+		    if (err) {
+		        console.log(err);
+		    } else {
+		        console.log('ok.');
+		    }
+		});
+- stat，如果我们要获取文件大小，创建时间等信息，可以使用fs.stat()，它返回一个Stat对象，能告诉我们文件或目录的详细信息：
+var fs = require('fs');
+
+		fs.stat('sample.txt', function (err, stat) {
+		    if (err) {
+		        console.log(err);
+		    } else {
+		        // 是否是文件:
+		        console.log('isFile: ' + stat.isFile());
+		        // 是否是目录:
+		        console.log('isDirectory: ' + stat.isDirectory());
+		        if (stat.isFile()) {
+		            // 文件大小:
+		            console.log('size: ' + stat.size);
+		            // 创建时间, Date对象:
+		            console.log('birth time: ' + stat.birthtime);
+		            // 修改时间, Date对象:
+		            console.log('modified time: ' + stat.mtime);
+		        }
+		    }
+		});
+
+由于Node环境执行的JavaScript代码是服务器端代码，所以，绝大部分需要在服务器运行期反复执行业务逻辑的代码，必须使用异步代码，否则，同步代码在执行时期，服务器将停止响应，因为JavaScript只有一个执行线程。
+
+服务器启动时如果需要读取配置文件，或者结束时需要写入到状态文件时，可以使用同步代码，因为这些代码只在启动和结束时执行一次，不影响服务器正常运行时的异步执行。
+
+- stream，
