@@ -82,3 +82,31 @@
 	    head.next = deleteDuplicates(head.next)
 	    return (head.val === head.next.val) ? head.next : head
 	};
+## 100.Same Tree
+
+```
+var isSameTree = function(p, q) {
+    if(p === null && q === null) return true;
+    if(p === null || q === null) return false;
+    if(p.val === q.val){
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+    return false;
+};
+```
+## 101.Symmetric Tree
+判断对称树
+
+```
+public boolean isSymmetric(TreeNode root) {
+    return root==null || isSymmetricHelp(root.left, root.right);
+}
+
+private boolean isSymmetricHelp(TreeNode left, TreeNode right){
+    if(left==null || right==null)
+        return left==right;
+    if(left.val!=right.val)
+        return false;
+    return isSymmetricHelp(left.left, right.right) && isSymmetricHelp(left.right, right.left);
+}
+```
