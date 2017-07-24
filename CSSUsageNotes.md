@@ -42,3 +42,8 @@
 [MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Media_queries)
 ## 使用rem
 使用前应先给html设置一个font-size属性，rem的大小就是它的1/10，这样就可以通过媒体查询来根据不同宽度的屏幕来设置这个root的font-size，从而实现适配。
+## li标签的宽高
+若我们有时为了将li标签横向展示会将其的display设置为inline，此事时不能设置宽高的！所以我们改用`float:left`属性使其具有宽高并依然能横向显示
+## 表格中td文字过多设置省略
+为table标签设置`table-layout:fixed`
+再为td设置`overflow:hidden;text-overflow:ellipsis`

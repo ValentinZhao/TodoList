@@ -23,3 +23,31 @@ html {
 #header-list li {
 	display: inline;
 }
+
+#header-list li.active a{
+	color: red;
+}
+
+#content {
+	width: 8.53333rem;
+	margin:  0 auto;
+}
+
+#content-list {
+	width: 600%;
+	overflow: hidden;
+	margin: 0rem;
+}
+
+#content-list li {
+	font-size: 1rem;
+	width: 8.5333rem;
+	display: inline-block;
+	overflow: hidden;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#content-list li p {
+	font-size: .5rem;
+}
