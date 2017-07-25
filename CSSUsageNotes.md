@@ -95,3 +95,37 @@ offsetWidth = width
 offsetHeight = height 
 
 (需要提一下：CSS中的margin属性，与clientWidth、offsetWidth、clientHeight、offsetHeight均无关)
+## 否定伪类
+CSS否定伪类，:not(X)，是以一个简单的X选择器为参数的功能性标记函数。它匹配不符合参数选择器X描述的元素。X不能包含另外一个否定选择器。
+
+	#header-list li:not(.active) {
+	  -webkit-filter: grayscale(1);
+	  filter: grayscale(1);
+	}
+
+## CSS滤镜
+[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)<br>
+CSS滤镜（filter）属提供的图形特效，像模糊，锐化或元素变色。过滤器通常被用于调整图片，背景和边界的渲染。
+
+CSS标准里包含了一些已实现预定义效果的函数。你也可以参考一个SVG滤镜，通过一个URL链接到SVG滤镜元素(SVG filter element)。
+
+<ul id="header-list" >
+                <li class="active">
+                  <a href="#bulletin">
+                    <img src="img/4.0/whatwecan/em_ma.png" alt="">
+                    <p>员工管理</p>
+                  </a>
+                </li>
+                <li><a href="#rule"><img src="img/4.0/whatwecan/leave_ma.png" alt="">
+                    <p>假勤管理</p></a></li>
+                <li><a href="#forum"><img src="img/4.0/whatwecan/sal_check.png" alt="">
+                    <p>薪酬核算</p></a></li>
+                <li><a href="#security"><img src="img/4.0/whatwecan/kpi_ma.png" alt="">
+                    <p>绩效管理</p></a></li>
+                <li><a href="#welfare"><img src="img/4.0/whatwecan/pro_auth.png" alt="">
+                    <p>流程审批</p></a></li>
+                <li><a href="#other1"><img src="img/4.0/whatwecan/em_self_help.png" alt="">
+                    <p>员工自助</p></a></li>
+            </ul>
+## 去除chrome下button、input、textarea等选中后的选中样式
+设置`input,button,select,textarea{outline:none}`
