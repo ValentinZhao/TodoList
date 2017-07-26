@@ -108,24 +108,65 @@ CSS否定伪类，:not(X)，是以一个简单的X选择器为参数的功能性
 CSS滤镜（filter）属提供的图形特效，像模糊，锐化或元素变色。过滤器通常被用于调整图片，背景和边界的渲染。
 
 CSS标准里包含了一些已实现预定义效果的函数。你也可以参考一个SVG滤镜，通过一个URL链接到SVG滤镜元素(SVG filter element)。
-
-<ul id="header-list" >
-                <li class="active">
-                  <a href="#bulletin">
-                    <img src="img/4.0/whatwecan/em_ma.png" alt="">
-                    <p>员工管理</p>
-                  </a>
-                </li>
-                <li><a href="#rule"><img src="img/4.0/whatwecan/leave_ma.png" alt="">
-                    <p>假勤管理</p></a></li>
-                <li><a href="#forum"><img src="img/4.0/whatwecan/sal_check.png" alt="">
-                    <p>薪酬核算</p></a></li>
-                <li><a href="#security"><img src="img/4.0/whatwecan/kpi_ma.png" alt="">
-                    <p>绩效管理</p></a></li>
-                <li><a href="#welfare"><img src="img/4.0/whatwecan/pro_auth.png" alt="">
-                    <p>流程审批</p></a></li>
-                <li><a href="#other1"><img src="img/4.0/whatwecan/em_self_help.png" alt="">
-                    <p>员工自助</p></a></li>
-            </ul>
 ## 去除chrome下button、input、textarea等选中后的选中样式
 设置`input,button,select,textarea{outline:none}`
+## CSS动画
+[阮一峰的日志](http://www.ruanyifeng.com/blog/2014/02/css_transition_and_animation.html)
+
+同transition一样，animation也是一个简写形式。
+
+div:hover {
+  animation: 1s 1s rainbow linear 3 forwards normal;
+}
+
+这是一个简写形式，可以分解成各个单独的属性。
+
+div:hover {
+  animation-name: rainbow;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-delay: 1s;
+    animation-fill-mode:forwards;
+  animation-direction: normal;
+  animation-iteration-count: 3;
+}
+
+keyframes关键字用来定义动画的各个状态，它的写法相当自由。
+
+@keyframes rainbow {
+  0% { background: #c00 }
+  50% { background: orange }
+  100% { background: yellowgreen }
+}
+
+0%可以用from代表，100%可以用to代表，因此上面的代码等同于下面的形式。
+
+@keyframes rainbow {
+  from { background: #c00 }
+  50% { background: orange }
+  to { background: yellowgreen }
+}
+
+如果省略某个状态，浏览器会自动推算中间状态，所以下面都是合法的写法。
+
+@keyframes rainbow {
+  50% { background: orange }
+  to { background: yellowgreen }
+}
+
+@keyframes rainbow {
+  to { background: yellowgreen }
+}
+
+甚至，可以把多个状态写在一行。
+
+@keyframes pound {
+  from，to { transform: none; }
+  50% { transform: scale(1.2); }
+}
+
+另外一点需要注意的是，浏览器从一个状态向另一个状态过渡，是平滑过渡。steps函数可以实现分步过渡。
+
+div:hover {
+  animation: 1s rainbow infinite steps(10);
+}
