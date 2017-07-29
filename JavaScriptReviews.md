@@ -98,6 +98,42 @@
 ##关于类Android Tablayout+ViewPager的移动端组件实现原理
 这样的一个组件其实不难，结合Hammer.js来实现手势识别是很容易的。关键是有一个技术点，就是滑动下部pager页时，我希望上面的tab条也跟着移动。这需要我在左滑右滑(hammer的swipeleft,swiperight事件)中，以自己的index做参量，乘以一个步长，这个步长由我的index与字体大小的商来决定；有了这个步长我就可以设置我在左滑右滑到指定位置时，我应该利用margin-left设置的负值使得这个tab条移动多少：负值越小，则越向右，vice versa。
 
+## 判断下载类型
+	//判断下载类型
+	(function() {
+	  var ua = window.navigator.userAgent.toLowerCase();
+	  var down =  document.querySelector('#downLoad');
+	  if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+	    down.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.zte.cloudservice.yige&g_f=991653";
+	  }else{
+	    var browser =
+	    {
+	      versions: function () {
+	        var u = navigator.userAgent;
+	        // var app = navigator.appVersion;
+	        return {//移动终端浏览器版本信息
+	          trident: u.indexOf('Trident') > -1, //IE内核
+	          presto: u.indexOf('Presto') > -1, //opera内核
+	          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+	          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+	          mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+	          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+	          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+	          iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+	          iPad: u.indexOf('iPad') > -1, //是否iPad
+	          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+	        };
+	      } (),
+	      language: (navigator.browserLanguage || navigator.language).toLowerCase()
+	    }
+	    if (browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) {
+	      down.href = "https://itunes.apple.com/cn/app/yi-ge-wang/id1077661476";
+	    }else if(browser.versions.android){
+	      down.href = "http://test.hrworked.net/app/yigewang.html";
+	    }
+	  }
+	})();
+
 ## Node.js笔记
 ###基本模块
 - global，Node.js环境的唯一全局变量，像浏览器的window
