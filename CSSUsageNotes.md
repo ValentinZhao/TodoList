@@ -170,3 +170,7 @@ keyframes关键字用来定义动画的各个状态，它的写法相当自由�
 div:hover {
   animation: 1s rainbow infinite steps(10);
 }
+## 关于一些浏览器适配和问题
+### UC浏览器下flex布局会崩
+这个问题主要是不是不支持flex，而是只支持旧语法。使用-webkit-box:vertical等来做适配。我们遇到的问题是，flex-direction在为column时会出问题，应该是不支持，删掉对应代码即可。
+
