@@ -171,6 +171,14 @@ div:hover {
   animation: 1s rainbow infinite steps(10);
 }
 ## 关于一些浏览器适配和问题
+[一篇关于flexbox适配的总结](http://www.ayqy.net/blog/flexbox%E5%B8%83%E5%B1%80%E7%9A%84%E5%85%BC%E5%AE%B9%E6%80%A7/)
 ### UC浏览器下flex布局会崩
 这个问题主要是不是不支持flex，而是只支持旧语法。使用-webkit-box:vertical等来做适配。我们遇到的问题是，flex-direction在为column时会出问题，应该是不支持，删掉对应代码即可。
+### iOS的惯性滑动问题
+在全局添加
+
+```
+-webkit-overflow-scrolling:touch;
+-webkit-transform:translate3d(0,0,0);//将资源装入内存开启硬件加速
+
 
