@@ -186,6 +186,8 @@ Node.js不断执行响应事件的JavaScript函数，直到没有任何响应事
 		} else {
 			console.log('browser');
 		}
+- ajaxSubmit上传图片到服务器再拉取
+其实只是上传结束之后的success回调中，把这个图片路径给到img的src中即可
 ###其他模块
 - fs模块，Node.js内置的fs模块就是文件系统模块，负责读写文件。
 异步读文件代码如下
