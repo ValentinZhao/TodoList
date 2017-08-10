@@ -15,7 +15,7 @@ function start(route, handler){
         //也就是说，router通过传来的pathname来确定要执行handler这个对象要执行的方法，第一个handler是你的所有事件处理程序的集合，pathname来决定到底执行哪个，
         //其实到底执行哪个是由你的输入决定的。最后传入response，在事件处理程序中，对response进行装入数据、设置header等工作使其成为一个有效的response，最后response.end()来结束封装
         req.addListener('end', function(){
-            route(handler, pathname, res, postData);
+            route(handler, pathname, res, req);
         });
     }
 
