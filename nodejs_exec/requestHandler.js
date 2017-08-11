@@ -32,6 +32,7 @@ function upload(res, req){
     console.log('About to parse...');
     form.parse(req, function(error, fields, files) {
         console.log("parsing done");
+        console.log(files);
         fs.renameSync(files.upload.path, "/tmp/test.png");
         res.writeHead(200, {
             "Content-Type": "text/html"
