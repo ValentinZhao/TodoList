@@ -1,5 +1,9 @@
 var http = require('http');
 var url = require('url');
+var ws = require('ws');
+var wsHandlers = require('./websocketHandler');
+
+const WebSocketServer = ws.Server;
 
 function start(route, handler){
     function onRequest(req, res) {
@@ -21,6 +25,11 @@ function start(route, handler){
 
     http.createServer(onRequest).listen(8888);
     console.log('Server has started!');
+
+    const wss = new WebSocketServer({
+        port: 3000
+    });
+    wsHandlers.onConnect(wss);
 }
 
 exports.start = start;
