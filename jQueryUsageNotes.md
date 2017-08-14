@@ -111,3 +111,6 @@ jQuery中用.witch属性和.keyCode属性来确定按下了哪个键；left-37,u
 	
 	$('div p:last').addClass("red"); <br>
 	$('div p:last-child').addClass("red");
+- 对于动态添加的DOM元素的事件添加
+	除了可以使用.live(会引发效率问题)
+	我们采用$(document).on('click', '$selector', handler)的方式来添加动态事件即可
