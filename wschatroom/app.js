@@ -15,7 +15,7 @@ const app = new Koa();
 
 
 app.use(async (ctx,next) => {
-    console.log('Process ${ctx.request.method} ${ctx.request.url}...');
+    console.log(`Process ${ctx.request.method} ${ctx.request.url}...`);
     await next();
 });
 
@@ -33,7 +33,7 @@ app.use(staticFiles('/static/', __dirname + '/static'));
 app.use(bodyParser());
 
 //加入nunjucks
-app.use(templating('view', {
+app.use(templating('views', {
     noCache: true,
     watch: true
 }));
@@ -54,10 +54,10 @@ function parseUser(obj) {
     if (s) {
         try {
             let user = JSON.parse(Buffer.from(s, 'base64').toString());
-            console.log('User: ${user.name}, ID: ${user.id}');
+            console.log(`User: ${user.name}, ID: ${user.id}`);
             return user;
         } catch (error) {
-            console.log('${error}')
+            console.log(`${error}`)
         }
     }
 }
@@ -78,7 +78,7 @@ function createWebSocketServer(server, onConnection, onMessage, onClose, onError
         console.log('[WebSocket] message received: ' + msg);
     };
     onClose = onClose || function (code, msg) {
-        console.log('[WebSocket] closed: ${code} - ${message}');
+        console.log(`[WebSocket] closed: ${code} - ${message}`);
     };
     onError = onError || function (err) {
         console.log('[WebSocket] error: ' + err);
@@ -118,7 +118,7 @@ function createMessage(type, user, data) {
 
 function onConnection () {
     let user = this.user;
-    let msg = createMessage('join', user, '${user.name} has joined!');
+    let msg = createMessage('join', user, `${user.name} has joined!`);
     this.wss.broadcast(msg);
     let users = this.wss.clients.map(function (client) {
         return client.user;
@@ -136,7 +136,7 @@ function onMessage(message) {
 
 function onClose() {
     let user = this.user;
-    let msg = createMessage('left', user, '${user.name} is left!');
+    let msg = createMessage('left', user, `${user.name} is left!`);
     this.wss.broadcast(msg);
 }
 
