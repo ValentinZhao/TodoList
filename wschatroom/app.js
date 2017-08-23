@@ -41,7 +41,7 @@ app.use(templating('views', {
 //加入controller
 app.use(controller());
 
-let server = app.listen(3000); // koa app的listen()方法返回http.Server:
+let server = app.listen(3030); // koa app的listen()方法返回http.Server:
 
 function parseUser(obj) {
     let s = '';
@@ -142,4 +142,4 @@ function onClose() {
 
 app.wss = createWebSocketServer(server, onConnection, onMessage, onClose);
 
-console.log('app started at port 3000...');
+console.log('app started at port 3030...');

@@ -110,3 +110,33 @@ private boolean isSymmetricHelp(TreeNode left, TreeNode right){
     return isSymmetricHelp(left.left, right.right) && isSymmetricHelp(left.right, right.left);
 }
 ```
+## 求树的最大深度
+```
+var maxDepth = function(root) {
+    if(root === null) return 0;
+    return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+};
+```
+## 按层打印树
+```
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null) return result;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while(queue.size() > 0) {
+            List<Integer> list = new ArrayList<>();
+            int size = queue.size();
+            for(int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                list.add(node.val);
+                if(node.left != null) queue.offer(node.left);
+                if(node.right != null) queue.offer(node.right);
+            }
+            result.add(0, list);
+        }
+        return result;
+    }
+}
+```
