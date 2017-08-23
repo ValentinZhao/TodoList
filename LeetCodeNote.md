@@ -117,6 +117,20 @@ var maxDepth = function(root) {
     return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
 };
 ```
+### 最小深度
+
+```
+var minDepth = function(root) {
+    return minHeight(root);
+};
+
+function minHeight (root) {
+    if (root === null) return 0;
+    var left = minHeight(root.left);
+    var right = minHeight(root.right);
+    return (left === 0 || right === 0) ? left + right + 1 : Math.min(left, right) + 1;
+}
+```
 ## 按层打印树
 ```
 class Solution {
@@ -181,3 +195,47 @@ function dfsHeight (root) {
     //该节点的高度其实是左右子树较高的那个 + 1
 }
 ```
+## 在树中找和为某值的路径
+```
+var hasPathSum = function(root, sum) {
+    return isExist(root, sum);
+};
+
+function isExist(root, sum) {
+    if (!root) return false;
+    if (!root.left && !root.right && sum - root.val === 0) return true;
+    return isExist(root.left, sum - root.val) || isExist(root.right, sum - root.val);
+}
+```
+## 求pascal triangle某一行
+基本算法思想就是，它的某一行其实就是先确定头尾、然后中间的位置加对应次数。
+
+```
+List<Integer> list = new ArrayList<Integer>();
+	if (rowIndex < 0)
+		return list;
+
+	for (int i = 0; i < rowIndex + 1; i++) {
+		list.add(0, 1);
+		for (int j = 1; j < list.size() - 1; j++) {
+			list.set(j, list.get(j) + list.get(j + 1));
+		}
+	}
+return list;
+```
+## 股票最大受益问题（max subarray）
+其实可以转化成一列数组求最大差，但此时需要是后面的值大于前面的值才可以。那么最大差值，其实又可以转化为只是求相邻两个元素的差（此题要求是后面的数减前面的数），把这些差值依次加起来，并且每次差值求出来之后先保存起来便于下次比较。现已循环我们又会将新的差值加入maxCur中，随后与maxSoFar比较求出这个循环中比较大的差值。最后结束当然就只剩最大的差值咯。
+
+```
+var maxProfit = function(prices) {
+    var maxCur = 0;
+    var maxSoFar = 0;
+    for(var i = 1; i < prices.length; i++) {
+        maxCur = Math.max(0, maxCur += prices[i] - prices[i-1]);
+        maxSoFar = Math.max(maxCur, maxSoFar);
+    }
+    return maxSoFar;
+};
+```
+
+    
