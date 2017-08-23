@@ -140,3 +140,44 @@ class Solution {
     }
 }
 ```
+## 将排序数组转换成BST
+```
+public TreeNode sortedArrayToBST(int[] num) {
+    if (num.length == 0) {
+        return null;
+    }
+    TreeNode head = helper(num, 0, num.length - 1);
+    return head;
+}
+
+public TreeNode helper(int[] num, int low, int high) {
+    if (low > high) { // Done
+        return null;
+    }
+    int mid = (low + high) / 2;
+    TreeNode node = new TreeNode(num[mid]);
+    node.left = helper(num, low, mid - 1);
+    node.right = helper(num, mid + 1, high);
+    return node;
+}
+```
+## 判断二叉树是否平衡
+利用深度优先遍历，记录左右子树的高度作差，即可在一次遍历之后得到是否平衡。
+
+```
+var isBalanced = function(root) {
+  return dfsHeight(root) != -1;  
+};
+
+function dfsHeight (root) {
+    if (root === null) return 0;
+    var leftHeight = dfsHeight(root.left);
+    if (leftHeight === -1) return -1;
+    var rightHeight = dfsHeight(root.right);
+    if (rightHeight === -1) return -1;
+    if(Math.abs(leftHeight - rightHeight) > 1) return -1;
+    return 1 + Math.max(leftHeight, rightHeight);
+    //也就是说，判断完该节点的左右子树的高度差小于1后
+    //该节点的高度其实是左右子树较高的那个 + 1
+}
+```
