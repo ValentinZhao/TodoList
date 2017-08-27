@@ -352,3 +352,40 @@ actions： actions也是操作state的数据而诞生的，你会疑问：‘不
 的形式，相当于一个实体数据类Javabean。分别用const来实现各部分。
 - VM层：也就是view，对应MovieView.vue，在V层利用Vue单文件组件，同时由于引入mapState状态得以保存并修改。state原本就保存有movie,book,activities等（在index.js中）。movie中的topMovies肯定是在M层赋得值，具体实现是通过tag...
 - V层：各个组件搭起来的部分，在该层中你可以看到各个组件比如scrollbar，在V层通过this.$store.dispatch来调用M层方法，也就是获取数据，如getMovie实际上是M层设置的方法。实际上是通过dispatch来提交mutation来改变状态
+
+## Vue.js Virtual DOM
+在Vue.js2.0中，Virtual DOM是通过VNode对象来表达的，每一个原生DOM元素或者Vue组件都对应一个DOM对象。生成VNode对象最关键的点是call render function, 那么调用render的方法无外于两种：直接在Vue对象创建时的option中添加render字段（该字段是个函数），或者是指定一个个根元素，先转化成模板后经语法解释器生成一个ast抽象语法树，最后语法树转换成HTML片段，最后通过代码生成function添加到option中。<br>
+那么在render函数的底层，渲染DOM主要是`renderElementWithChildren()`方法与`renderElement()`方法。
+
+- renderElementWithChildren: 给一个VNode对象添加若干个子VNode，因为整个DOM是一个树结构
+- renderElement： 创建一个VNode对象
+
+那么VNode转换成真正的DOM是通过`patch`方法来实现。
+
+	/**
+	* oldVnode:以前的DOM，可以是真实DOM或VNode
+	* vnode: 要替换的vnode
+	* hydrating: boolean类型，是否使用SSR来渲染出DOM
+	**/
+	patch(oldVnode, vnode, hydrating)
+那么patch内部的实现流程是，如果没有oldVnode就直接创造vnode出来，有的话
+
+- oldVnode不是一个真实DOM节点并且跟传进来的vnode一致：调用`patchVNode()`方法，进入生命周期钩子
+- oldVNode是真实DOM，再根据第三个参数是否需要SSR来调用SSR生成DOM字符串解析并替换oldVNode
+- oldVNode是一个vnode对象，此时先创建另一个vnode，再根据oldVNode是否有父节点来插入生命周期钩子
+
+那么在这个流程中最重要的就是`createElm()`和`patchVNode()`方法,因为有多处需要直接创建真实DOM或vnode。
+
+- createElm(vnode, insertVnodeQueue)：会根据vnode数据结构创建真实的DOM节点，递归创建。创建的vnode会被添加进这个维护的queue中。
+- patchVnode(oldVnode,vnode,insertVnodeQueue)：通过比较新旧vnode来实现合理的更新。那么合理的更新主要就是指，编译阶段生成的静态子树在这个过程中会跳过比对，动态子树比对就是在比对时如果双方都有子树，则调用updateChildren方法对子节点做更新。updateChildren主要就是通过while循环一遍遍地比对两棵树的子节点来更新DOM。
+
+那么当VNode方法通过patch创建真实DOM之后，会调用mounted hook。调用之后Vue实例创建完成，当该实例的Watcher发现数据变换时，会再次调用render函数来创建新VNode，接着调用patch来实现节点创建以及视图更新。
+
+## Vue.js的响应式原理
+大体来说就是
+
+- 通过Observer对data做监听，并且提供了订阅某个数据项变化的能力
+- 把template编译成一段document fragment，然后解析其中的Directive，得到每一个Directive所依赖的数据项以及update方法
+- 通过watcher把上述两者结合起来。即把directive中的数据项通过watcher订阅在对应数据的Observer的Dep上，数据变化时，就会触发Observer的Dep上的notify方法通知对应的watcher的update，进而触发update方法来更新DOM视图
+
+Observer绑定data过程大致是，在生命周期中会调用一个vm._initData()方法来处理data选项。在里面又会有遍历data的key的方法`_proxy()`，它会遍历data的key通过Object.defineProperty方法来代理getter，setter。最后在init中会调用`observe(data, this)`方法来创建一个Observer，那么Observer做的事情是：创建一个`Dep`对象实例，然后对传进来的data进行类型判断（单个对象还是数组），对数组也是递归调用observe，最终会调用`walk`方法观察单元素。在walk中，对单元素的key进行遍历，对每个属性执行`convert`方法。convert方法再调用`defineReactive`方法，这个方法就是为每个属性添加setter，getter，以此来实现了数据劫持。当某个属性被访问时，属性的getter会被调用——判断当`Dep.target`不为空时，调用`dep.depend`和`childObj.dep.depend`做依赖收集。改变data属性时，则会调用setter方法，这时会调用dep.notify方法进行通知了。
