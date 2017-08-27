@@ -76,6 +76,8 @@
       this.$emit('showTalion')
       }
   	}
+### data要用方法返回的原因 
+把简单一个对象给Vue.extend()的话，所有实例将统一用一个data对象，而用方法返回就不会出现类似情况。
 ## 新建一个Vue.js项目
 ### vue-cli
 - 快速搭建项目的脚手架工具，需要Node.js > 4.x, npm, 以及一个可以执行node.js的命令行工具
