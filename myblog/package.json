@@ -1,0 +1,22 @@
+{
+  "name": "myblog",
+  "version": "1.0.0",
+  "description": "myblog based on vue.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ValentinZhao/TodoList.git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "valentin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ValentinZhao/TodoList/issues"
+  },
+  "homepage": "https://github.com/ValentinZhao/TodoList#readme"
+}
