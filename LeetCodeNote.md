@@ -243,3 +243,140 @@ var maxProfit = function(prices) {
 ```
 return nums.reduce((r, n) => r^n);
 ```
+
+## Min Stack (JavaScript Ver.)
+
+简要思想就是利用JS中的数组来模拟栈，这里的栈在初始化的时候首先维护一个数组（这个数组是二维的，之后讲）和一个最小值的变量。那么我们每次在push的时候，是调用数组的push方法，把一个**数组**push进我们维护的数组中，被push的数组只有两个值，一个是我们原来要push的数字，还有就是`this.minValue`也就是现在栈中最小的值。当然我们在push之后会进行校验和对最小值的更新确保每次push之后都有最小值。同样的栈的pop方法我们还是调用数组的pop方法（JS在这个时候很方便），会从尾部弹出一个数组的元素并返回，此时`this.minValue`的值是这个弹出的元素所保存的minValue。top方法查看栈顶元素，其实就是数组尾部的那个数组的第一位所保存的数字；最后getMin方法就很简单了，直接返回我们维护的this.minValue即可。
+
+```
+/**
+ * @constructor
+ */
+var MinStack = function() {
+    this.values = [];
+    this.minValue;
+};
+
+/**
+ * @param {number} x
+ * @returns {void}
+ */
+MinStack.prototype.push = function(x) {
+    this.values.push([x,this.minValue]);
+    
+    if(this.values.length === 1)
+        this.minValue = x;
+    else if(x < this.minValue)
+        this.minValue = x;
+};
+
+/**
+ * @returns {void}
+ */
+MinStack.prototype.pop = function() {
+    var items = this.values.pop();
+    this.minValue = items[1];
+};
+
+/**
+ * @returns {number}
+ */
+MinStack.prototype.top = function() {
+    return this.values[this.values.length - 1][0];
+};
+
+/**
+ * @returns {number}
+ */
+MinStack.prototype.getMin = function() {
+    return this.minValue;
+};
+```
+## 单链表公共节点
+
+```
+var getIntersectionNode = function(headA, headB) {
+    if (!headA || !headB) return null;
+    let a = headA;
+    let b = headB;
+    while (a !== b) {
+        a = a === null ? headB : a.next;
+        b = b === null ? headA : b.next;
+    }
+    
+    return a;
+};
+```
+## 找有序数组中和为某一值的两个元素的下标
+
+```
+var twoSum = function(numbers, target) {
+    let indice = [0,0];
+    if (!numbers || numbers.length < 2) return indice;
+    let left = 0;
+    let right  = numbers.length - 1;
+    while (left < right) {
+        let e = numbers[left] + numbers[right];
+        if (e === target) {
+            indice[0] = left + 1;
+            indice[1] = right + 1;
+            break;
+        } else if (e > target) {
+            right--;
+        } else {
+            left++;
+        }
+    }
+    return indice;
+};
+```
+## 数字转字母序（26进制问题）
+
+```
+var keys = ['Z','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y'],
+        mod, string = ''
+    while (n > 0) {
+        mod = n % 26
+        string = keys[mod] + string
+        n = Math.floor((n - 1) / 26)
+    }
+    return string
+```
+
+字母转数字
+
+```
+var titleToNumber = function(s) {
+    const charCodeBase = 'A'.charCodeAt(0) - 1;
+    const n = s.length;
+    let number = 0;
+
+    for (let i = 0; i < n; i++)
+        number += (s.charCodeAt(i) - charCodeBase) * Math.pow(26, n-i-1);
+    
+    return number;
+};
+```
+## 利用位运算完成加法
+
+```
+var getSum = function(a, b) {
+    if (b === 0) return a;
+    let sum, carry;
+    sum = a^b;
+    carry = (a&b) << 1;
+    return getSum(sum, carry);
+};
+```
+
+## 利用牛顿法手动实现开平方根
+```
+var isPerfectSquare = function(num) {
+    let x = num;
+    while (x * x > num) {
+        x = (x + num / x) >> 1;
+    }
+    return x * x === num;
+};
+```
+
