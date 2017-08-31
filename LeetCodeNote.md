@@ -237,5 +237,9 @@ var maxProfit = function(prices) {
     return maxSoFar;
 };
 ```
+## Single Nunber
+找一组数字中唯一一个只出现一次的那个数。算法就是利用异或，两个相同的数异或为零。
 
-    
+```
+return nums.reduce((r, n) => r^n);
+```
