@@ -380,3 +380,66 @@ var isPerfectSquare = function(num) {
 };
 ```
 
+## 求两个数组的相交
+
+```
+var intersect = function(nums1, nums2) {
+    var res = [],
+        i = 0,
+        j = 0;
+    
+    // Sort nums1
+    nums1.sort(function(a, b){ 
+        return a - b; 
+    });
+    
+    // Sort nums2
+    nums2.sort(function(a, b){ 
+        return a - b; 
+    });
+    
+    // Traverse through two pointers
+    while(j < nums2.length && i < nums1.length){
+        if(nums1[i] === nums2[j]){
+            res.push(nums2[j]);
+            j++;
+            i++;
+        }
+        if(nums2[j] > nums1[i])
+            i++;
+        if(nums2[j] < nums1[i])
+            j++;
+    }
+    
+    return res;
+};
+```
+
+## 元音字母逆序
+
+```
+if(s == null || s.length()==0) return s;
+    String vowels = "aeiouAEIOU";
+    char[] chars = s.toCharArray();
+    int start = 0;
+    int end = s.length()-1;
+    while(start<end){
+        
+        while(start<end && !vowels.contains(chars[start]+"")){
+            start++;
+        }
+        
+        while(start<end && !vowels.contains(chars[end]+"")){
+            end--;
+        }
+        
+        char temp = chars[start];
+        chars[start] = chars[end];
+        chars[end] = temp;
+        
+        start++;
+        end--;
+    }
+    return new String(chars);
+```
+

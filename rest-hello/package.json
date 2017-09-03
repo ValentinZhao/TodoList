@@ -1,0 +1,21 @@
+{
+  "name": "rest-hello",
+  "version": "1.0.0",
+  "description": "rest-api exec",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app.js"
+  },
+  "keywords": [
+    "resr",
+    "api"
+  ],
+  "author": "valentin",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.2.1"
+  }
+}
