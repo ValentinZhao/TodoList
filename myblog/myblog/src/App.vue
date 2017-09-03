@@ -19,8 +19,8 @@ export default {
 </script>
 
 <style>
-@import '/assets/css/_index';
-@import '/assets/css/_ionicicon';
+@import './assets/css/_index.css';
+@import './assets/css/_ionicicon.css';
 
 html, body {
   box-sizing: border-box;

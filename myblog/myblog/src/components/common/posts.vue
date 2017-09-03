@@ -4,10 +4,9 @@
       :class="{'adaptor': showLoading === true}">
       <h1 class="posts-head-title">文章</h1>
       <div class="posts-article"
-        transition="fadeIn"
-        v-show="showLoading === false">
+        transition="fadeIn">
         <ul class="posts-article-list">
-          <li class="posts-article-item" v-for="article in articleList">
+          <li class="posts-article-item" v-for="(article,index) in articleList" :key="index">
             <h4 class="article-head-title"
               v-link="{name: 'page', params: {id: article._id}}">{{article.title}}</h4>
             <span class="article-head-time">{{article.createTime}}</span>
@@ -36,6 +35,21 @@
 <script>
 export default {
   data () {
+    return {
+      articleList: [{
+        _id: 101,
+        title: '我是标题1',
+        createTime: '2017-8-29',
+        markedArticle: '前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端',
+        tags: '前端经验'
+      }, {
+        _id: 102,
+        title: '我是标题2',
+        createTime: '2017-8-30',
+        markedArticle: '前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端',
+        tags: '前端经验'
+      }]
+    }
   }
 }
 </script>
@@ -46,6 +60,8 @@ export default {
 .posts-container {
   box-sizing: border-box;
   margin-left: 30px;
+  margin-left: 16.3%;
+  width: 70%;
   .posts-wrap {
     box-sizing: border-box;
     width: 100%;
@@ -78,6 +94,7 @@ export default {
     position: relative;
     padding: 15px 30px 10px;
     border-bottom: 1px solid #eee;
+    height: 170px;
     &:after {
       content: '';
       position: absolute;
@@ -114,6 +131,8 @@ export default {
 .article-content-desc {
   width: 100%;
   max-height: 100px;
+  text-overflow: ellipsis;
+  word-break: keep-all;
   margin: 0;
   color: #7f7f7f;
   overflow: hidden;

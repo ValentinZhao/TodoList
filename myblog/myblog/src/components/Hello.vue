@@ -1,13 +1,15 @@
 <template>
-  <div class="home-container rd-row-flex">
+  <div class="home-container rd-row-flex flex-space-between">
     <leftmenu></leftmenu>
     <router-view></router-view>
+    <sidebar></sidebar>
   </div>
 </template>
 
 <script>
 import leftmenu from '../components/common/leftMenu.vue'
 import posts from '../components/common/posts.vue'
+import sidebar from '../components/common/sideBar.vue'
 
 export default {
   name: 'hello',
@@ -18,7 +20,8 @@ export default {
   },
   components: {
     leftmenu,
-    posts
+    posts,
+    sidebar
   }
 }
 </script>
@@ -45,7 +48,6 @@ a {
 
 .home-container {
   position: relative;
-  width: 1120px;
-  padding: 80px 0 30px;
+  margin-right: 5%;
 }
 </style>

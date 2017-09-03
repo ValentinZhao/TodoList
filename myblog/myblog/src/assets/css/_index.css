@@ -1,2 +1,2 @@
-@import 'base/base';
-@import 'base/layout';
+@import './base/_base.css';
+@import './base/_layout.css';
