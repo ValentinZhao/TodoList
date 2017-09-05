@@ -6,7 +6,7 @@
       <div class="posts-article"
         transition="fadeIn">
         <ul class="posts-article-list">
-          <li class="posts-article-item" v-for="(article,index) in articleList" :key="index">
+          <li class="posts-article-item" v-for="(article,index) in getArticleList" :key="index">
             <h4 class="article-head-title"
               v-link="{name: 'page', params: {id: article._id}}">{{article.title}}</h4>
             <span class="article-head-time">{{article.createTime}}</span>
@@ -33,23 +33,31 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   data () {
     return {
-      articleList: [{
-        _id: 101,
-        title: '我是标题1',
-        createTime: '2017-8-29',
-        markedArticle: '前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端',
-        tags: '前端经验'
-      }, {
-        _id: 102,
-        title: '我是标题2',
-        createTime: '2017-8-30',
-        markedArticle: '前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端前端',
-        tags: '前端经验'
-      }]
     }
+  },
+  mounted () {
+    this.getAllArticles().then(() => {
+      alert('post成功调用！！')
+    }).catch(() => {
+      alert('post并未成功')
+    })
+  },
+  computed: {
+    // getters中get的数据可以直接作为数据使用
+    ...mapGetters([
+      'getArticleList',
+      'getShowLoading'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'getAllArticles'
+    ])
   }
 }
 </script>

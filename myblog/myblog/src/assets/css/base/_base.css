@@ -47,8 +47,8 @@ input::-ms-clear, input::-ms-reveal {
 }
 
 ::selection {
-  background: $primary-color;
-  color: #fff;
+  /* background: $primary-color; */
+  color: #42b983;
 }
 
 /* Links*/
