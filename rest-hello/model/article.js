@@ -1,12 +1,12 @@
-const Article = require('./schema/article');
+const ArticleModel = require('./schema/article');
 
 class Article {
   constructor() {
-    this.model = Article;
+    this.model = ArticleModel;
   }
 
   save (opts) {
-    this.entity = new Article(opts);
+    this.entity = new ArticleModel(opts);
     return this.entity.save(opts);
   }
 
