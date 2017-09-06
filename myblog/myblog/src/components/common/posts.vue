@@ -6,7 +6,7 @@
       <div class="posts-article"
         transition="fadeIn">
         <ul class="posts-article-list">
-          <li class="posts-article-item" v-for="(article,index) in getArticleList" :key="index">
+          <li class="posts-article-item" v-for="(article,index) in articleList" :key="index">
             <h4 class="article-head-title"
               v-link="{name: 'page', params: {id: article._id}}">{{article.title}}</h4>
             <span class="article-head-time">{{article.createTime}}</span>
@@ -41,17 +41,19 @@ export default {
     }
   },
   mounted () {
-    this.getAllArticles().then(() => {
-      alert('post成功调用！！')
-    }).catch(() => {
-      alert('post并未成功')
+    this.getAllArticles().then((res) => {
+      console.log('请求文章列表成功')
+      console.log(res)
+    }).catch((err) => {
+      alert('请求文章列表错误')
+      console.log(err)
     })
   },
   computed: {
     // getters中get的数据可以直接作为数据使用
     ...mapGetters([
-      'getArticleList',
-      'getShowLoading'
+      'articleList',
+      'showLoading'
     ])
   },
   methods: {

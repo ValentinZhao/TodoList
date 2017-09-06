@@ -1,3 +1,7 @@
+const Article = require('./model/article');
+
+const article = new Article();
+
 let articleList = [{
   _id: 101,
   title: '我是标题1',
@@ -14,6 +18,9 @@ let articleList = [{
 
 module.exports = {
   'GET /api/articlelist': async (ctx, next) => {
+    article.queryAll().then((res) => {
+      console.log(res.data);
+    })
     //设置Content-Type
     ctx.response.type = 'application/json';
     ctx.response.set('Access-Control-Allow-Origin', '*');

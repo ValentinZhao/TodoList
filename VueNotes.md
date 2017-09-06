@@ -339,6 +339,7 @@ actions： actions也是操作state的数据而诞生的，你会疑问：‘不
 		    store, //应用配置
 		    render: h => h(App)
 		}).$mount("#app");
+6. actions中，在Vuex2.x中是令actions的每一项返回一个新的Promise，在这个Promise中包裹一个异步请求。如结合axios或者vue-resource开发的话，就是在请求网络之后在.then中来提交commit修改mutations即可。这里有一个坑就是注意最后在注册store的时候，四项分别为`store`,`mutations`,`actions`和`getters`如果mutations或actions拼错都会出现不能找到对应mutation的错误。
 ## Vue+Vue-router+Vuex全家桶架构理解
 以`movie.js`为例，在Vuex的`index.js`中分好模块（一般用于较复杂应用）
 

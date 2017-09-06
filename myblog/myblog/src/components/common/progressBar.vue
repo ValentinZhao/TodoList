@@ -4,13 +4,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
       percent: 0,
       progressStatus: false,
-      startTimer: '',
-      mState: this.$store.state.showLoading
+      startTimer: ''
     }
   },
   watch: {
@@ -45,10 +45,10 @@ export default {
     this.start()
     this.finish()
   },
-  vuex: {
-    getters: {
-      showLoading: state => state.showLoading
-    }
+  computed: {
+    ...mapGetters([
+      'showLoading'
+    ])
   }
 }
 </script>

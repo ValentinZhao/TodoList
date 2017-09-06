@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {
-  GET_ALL_ARTICLES
-} from './mutation-type'
+import * as types from './mutation-type'
 import api from '../api'
 
 Vue.use(Vuex)
@@ -13,14 +11,14 @@ const state = {
 }
 
 const mutations = {
-  [GET_ALL_ARTICLES] (state, articleList) {
+  [types.GET_ALL_ARTICLES] (state, articleList) {
     state.articleList = articleList
   }
 }
 
 const getters = {
-  getArticleList: state => state.articleList,
-  getShowLoading: state => state.showLoading
+  articleList: state => state.articleList,
+  showLoading: state => state.showLoading
 }
 
 const actions = {
@@ -28,7 +26,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       api.getAllArticles().then((res) => {
         console.log(res)
-        commit(GET_ALL_ARTICLES, res.data.articleList)
+        commit(types.GET_ALL_ARTICLES, res.data.articleList)
         resolve(res)
       }).catch((err) => {
         alert(err)

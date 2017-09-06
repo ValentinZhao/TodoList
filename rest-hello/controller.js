@@ -1,3 +1,7 @@
+/**
+ * controllers目录扫描
+ * 在addMapping中把controllers下的所有请求对应到router中，最后统一router.routes()
+ */
 const fs = require('fs');
 
 function addMapping (router, mapping) {
