@@ -6,10 +6,12 @@ const mongoose = require('mongoose');
  */
 const articleSchema = new mongoose.Schema({
   title: String,
-  tags: String,
+  createTime: String,
   sourceArticle: String,
   markedArticle: String,
-  createTime: String
+  tags: String
+}, {
+  versionKey: false
 });
 
-module.exports = mongoose.model('Article', articleSchema);
+module.exports = mongoose.model('articlelist', articleSchema);

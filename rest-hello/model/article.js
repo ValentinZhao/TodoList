@@ -1,4 +1,4 @@
-const ArticleModel = require('./schema/article');
+const ArticleModel = require('../schema/article');
 
 class Article {
   constructor() {
@@ -18,8 +18,6 @@ class Article {
 
   queryAll () {
     return this.model.find({})
-      .sort({_id:-1})
-      .exec();
   }
 
   queryById (id) {

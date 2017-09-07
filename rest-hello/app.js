@@ -7,7 +7,7 @@ const app = new Koa();
 
 database.on('error', console.error.bind(console, 'error: connect error!'));
 database.once('open', function () {
-  console.log('connection success');
+  console.log('[MongoDB] connection success');
 })
 app.use(bodyParser());
 app.use(controller());
