@@ -443,3 +443,145 @@ if(s == null || s.length()==0) return s;
     return new String(chars);
 ```
 
+## 修改this指向
+
+```
+function bindThis(f, oTarget) {
+    return function(){
+        return f.apply(oTarget,arguments);
+    }
+}
+```
+## 获取url中参数
+
+```
+function getUrlParam(sUrl,sKey){
+    var result = {};
+    //a是匹配项，k是第一个捕获组匹配项，v是第二个捕获组匹配项
+    sUrl.replace(/\??(\w+)=(\w+)&?/g,function(a,k,v){
+        if(result[k] !== void 0){
+            var t = result[k];
+            result[k] = [].concat(t,v);
+        }else{
+            result[k] = v;
+        }
+    });
+    //void 0相当于undefined,比直接写undefined更加安全
+    if(sKey === void 0){
+        return result;
+    }else{
+        return result[sKey] || '';
+    }
+}
+```
+
+## 找DOM节点的最近公共祖先
+那么这题的思路就是，不用管谁是包含谁，还是兄弟关系，只需要随便选一个节点然后判断一个是否包含另一个，不包含就取该节点的父节点为当前节点，继续循环。
+
+```
+function commonParentNode(oNode1, oNode2) {
+    while (!oNode1.contains(oNode2)) {
+        oNode1 = oNode1.parentNode;
+    }
+    return oNode1;
+}
+```
+## 根据包名创造对象
+> 输入：namespace({a: {test: 1, b: 2}}, 'a.b.c.d')
+
+> 输出：{a: {test: 1, b: {c: {d: {}}}}}
+
+```
+function namespace(oNamespace, sPackage) {
+    var arr = sPackage.split('.');
+    var res = oNamespace;   // 保留对原始对象的引用
+ 
+    for(var i = 0; i < arr.length; i++) {
+        if(arr[i] in oNamespace) {  // 空间名在对象中
+            if(typeof oNamespace[arr[i]] !== "object") {    // 为原始值
+                oNamespace[arr[i]] = {};    // 将此属性设为空对象           
+            }  
+        } else {    // 空间名不在对象中，建立此空间名属性，赋值为空
+            oNamespace[arr[i]] = {};
+        }
+         
+        oNamespace = oNamespace[arr[i]];    // 将指针指向下一个空间名属性。
+    }
+ 
+    return res;
+ 
+}
+```
+
+## 高级版数组去重
+输入中可能有两个NaN，但两个NaN是不能直接用等号判断的，因为他们本来就不相等；类似的情况还有空数组，我们不认为两个空数组是一致的元素。
+
+```
+Array.prototype.uniq = function () {
+    var hasNaN = false;
+    for(var i = 0; i < this.length; i++){
+        if(this[i] !== this[i]) hasNaN = true;
+        for(var j = i+1; j < this.length;){
+            if(this[i] === this[j] ||(hasNaN && this[j] !== this[j])){
+                this.splice(j,1);
+            }else{
+                j++;
+            }
+        }
+    }
+    return this;
+}
+```
+## 格式化时间
+```
+function formatDate(t,str){
+  var obj = {
+    yyyy:t.getFullYear(),
+    yy:(""+ t.getFullYear()).slice(-2),
+    M:t.getMonth()+1,
+    MM:("0"+ (t.getMonth()+1)).slice(-2),
+    d:t.getDate(),
+    dd:("0" + t.getDate()).slice(-2),
+    H:t.getHours(),
+    HH:("0" + t.getHours()).slice(-2),
+    h:t.getHours() % 12,
+    hh:("0"+t.getHours() % 12).slice(-2),
+    m:t.getMinutes(),
+    mm:("0" + t.getMinutes()).slice(-2),
+    s:t.getSeconds(),
+    ss:("0" + t.getSeconds()).slice(-2),
+    w:['日', '一', '二', '三', '四', '五', '六'][t.getDay()]
+  };
+  return str.replace(/([a-z]+)/ig,function($1){return obj[$1]});
+}
+```
+
+## 判断邮件
+```
+function isAvailableEmail(sEmail) {
+    return /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/.test(sEmail);
+}
+```
+## RGB颜色转换
+输入rgb(255,213,22)
+```
+function rgb2hex(sRGB) {
+    var reg = /rgb\((\d+),\s*(\d+),\s*(\d+)\)/;
+    var ret = sRGB.match(reg);
+    if (!ret) {
+        return sRGB;
+    } else {
+		var str='#';
+        for(var i=1;i<=3;i++){
+            var m=parseInt(ret[i]);
+            if(m<=255&&m>=0){
+                str+=(m<16?'0'+m.toString(16):m.toString(16));
+            }else{
+                return sRGB;
+            }
+        }
+        return str;
+    }
+}
+```
+
