@@ -584,4 +584,117 @@ function rgb2hex(sRGB) {
     }
 }
 ```
+## 横线转驼峰
+```
+function cssStyle2DomStyle(sName) {
+    return sName.replace(/(?!^)\-(\w)(\w+)/g, function(a, b, c){
+                return b.toUpperCase() + c.toLowerCase();
+            }).replace(/^\-/, '');
+}
+```
+## 数组求和的一个极限装逼技巧
+给你一个arr，把里面的数求和，不许遍历
+
+```
+//可以选择递归来做，不过还有一个更极限的
+eval(arr.join('+'));
+```
+## 移除数组中的元素
+注意利用JS中很好用的高阶函数！！
+
+```
+function remove(arr, item) {
+    if (!arr || !item) return null;
+    return arr.filter(function(v){
+       return v !== item; 
+    });
+}
+```
+
+```
+function removeWithoutCopy(arr, item) {
+    for (var i in arr) {
+        while(arr[i] === item){
+            arr.splice(i,1);
+        }
+    }
+    return arr;
+}
+```
+### 关于splice的使用
+splice(index,len,[item])    
+
+注释：<span style="color:red">该方法会改变原始数组</span>。
+splice有3个参数，它也可以用来替换/删除/添加数组内某一个或者几个值
+index:数组开始下标        len: 替换/删除的长度       item:替换的值，删除操作的话 item为空
+如：arr = ['a','b','c','d']
+
+删除 ----  item不设置
+arr.splice(1,1)   //['a','c','d']         删除起始下标为1，长度为1的一个值，len设置的1，如果为0，则数组不变
+arr.splice(1,2)  //['a','d']          删除起始下标为1，长度为2的一个值，len设置的2
+
+替换 ---- item为替换的值
+arr.splice(1,1,'ttt')        //['a','ttt','c','d']         替换起始下标为1，长度为1的一个值为‘ttt’，len设置的1
+arr.splice(1,2,'ttt')        //['a','ttt','d']         替换起始下标为1，长度为2的两个值为‘ttt’，len设置的1
+
+添加 ----  len设置为0，item为添加的值
+arr.splice(1,0,'ttt')        //['a','ttt','b','c','d']         表示在下标为1处添加一项‘ttt’
+
+同时注意，slice,concat,join都会返回新数组或字符串；splice,push等会在原数组上修改。
+
+## 查找数组中的重复元素
+> 如给定数组[1, 2, 4, 4, 3, 3, 1, 5, 3],求重复的元素
+
+```
+function duplicates(arr) {
+  return arr.sort(function(a,b){ return a-b }).filter(function(v,i){
+      return arr[i] === arr[i + 1] && arr[i] !== arr[i - 1];
+  });
+}
+
+```
+
+## 柯里化例题
+>输入functionFunction('Hello')('world')
+
+>输出Hello, world
+
+```
+function functionFunction(str) {
+    var f = function(s) {
+        return str + ', ' + s;
+    }
+    return f;
+}
+```
+
+## 闭包考题一则
+>已知函数 fn 执行需要 3 个参数。请实现函数 partial，调用之后满足如下条件：
+1、返回一个函数 result，该函数接受一个参数
+2、执行 result(str3) ，返回的结果与 fn(str1, str2, str3) 一致
+
+>var sayIt = function(greeting, name, punctuation) {     return greeting + ', ' + name + (punctuation || '!'); };  partial(sayIt, 'Hello', 'Ellie')('!!!');
+
+>Hello, Ellie!!!
+
+```
+function partial(fn, str1, str2) {
+    var fn1 = (function(a,b){
+        return function(c){
+            return fn(a,b,c);
+        }
+    })(str1,str2);
+    return fn1;
+}
+```
+
+```
+function partial(fn, str1, str2) {
+    return function(){
+      var str3 = arguments[0]
+      return fn.call(this,str1,str2,str3)
+    }
+}
+```
+
 
