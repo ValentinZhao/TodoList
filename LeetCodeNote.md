@@ -668,6 +668,39 @@ function functionFunction(str) {
 }
 ```
 
+### 柯里化
+
+题目描述
+
+已知 fn 为一个预定义函数，实现函数 curryIt，调用之后满足如下条件：
+1、返回一个函数 a，a 的 length 属性值为 1（即显式声明 a 接收一个参数）
+2、调用 a 之后，返回一个函数 b, b 的 length 属性值为 1
+3、调用 b 之后，返回一个函数 c, c 的 length 属性值为 1
+4、调用 c 之后，返回的结果与调用 fn 的返回值一致
+5、fn 的参数依次为函数 a, b, c 的调用参数
+
+>输入 var fn = function (a, b, c) {return a + b + c}; curryIt(fn)(1)(2)(3);
+
+>输出 6
+
+```
+function curryIt(fn) {
+    var length = fn.length,//第一个函数接受的参数数量,在例子中就是3
+        args = [];
+    var result =  function (arg){
+        args.push(arg);
+        length --;
+        if(length <= 0 ){
+            return fn.apply(this, args);
+        } else {
+            return result;
+        }
+    }
+     
+    return result;
+}
+```
+
 ## 闭包考题一则
 >已知函数 fn 执行需要 3 个参数。请实现函数 partial，调用之后满足如下条件：
 1、返回一个函数 result，该函数接受一个参数
@@ -696,5 +729,48 @@ function partial(fn, str1, str2) {
     }
 }
 ```
+## arguments使用
+要注意的是，arguments是个伪数组，不能用来直接遍历，所以我们通常调用Array.prototype.slice.call(arguments)来将伪数组转换为真数组。
 
+```
+function useArguments() {
+    var arr=Array.prototype.slice.call(arguments)//把arguments类数组转化为数组
+    return eval(arr.join("+"));//求和
+}
+```
+那么还有一种情况是，在返回的函数中我们又增加了新的参数，所以作为柯里化我们需要处理新参数，其实就是利用`concat`把参数拼接起来即可，下面是示例代码。
+
+```
+function partialUsingArguments(fn) {
+     //先获取p函数第一个参数之后的全部参数
+     var args = Array.prototype.slice.call(arguments,1);
+     //声明result函数
+     var result = function(){
+         //使用concat合并两个或多个数组中的元素
+         return fn.apply(null, args.concat([].slice.call(arguments)));
+     }
+     return result;
+ }
+```
+
+## 有关正则的问题
+### 使用子表达式提取符
+
+给定字符串 str，检查其是否包含连续重复的字母（a-zA-Z），包含返回 true，否则返回 false
+
+>'rattler'
+>true
+
+```
+function containsRepeatingLetter(str) {
+     return /([a-zA-Z])\1/.test(str);
+ }
+```
+这里就是用到了子表达式提取符`\1`,用于提取上一个捕获组的内容。所以这里就相当于匹配两个连续的相同字符。
+
+```
+function isUSD(str) {
+    return /^\$\d{1,3}(,\d{3})*(\.\d{2})?$/.test(str)
+}
+```
 
