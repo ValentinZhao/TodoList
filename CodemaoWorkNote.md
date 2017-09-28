@@ -2,3 +2,4 @@
 - htmlwebpackplugin
 - happyplugin
 - extracttextplugin
+- others
