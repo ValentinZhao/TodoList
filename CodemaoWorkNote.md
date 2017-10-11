@@ -218,3 +218,112 @@ myGenericNumber.add = function(x, y) { return x + y; };
 - happyplugin
 - extracttextplugin
 - others
+
+# 工程架构理解
+以打开material dialog为例来理解一次react＋redux的数据流动过程，包括action创建和reducer等。
+
+## Component vs. ComponentClass
+>ComponentClass is the interface for the Component object (the interface for static properties on Component, in other words). To say class Component implements ComponentClass means that every instance of Component must have the properties defined by the ComponentClass interface.
+
+## react-redux
+[API docs](https://github.com/reactjs/react-redux/blob/master/docs/api.md#api)
+
+## saga
+在项目中我们使用redux－saga来处理reducer和action。举个例子，我们要在关闭一个窗口后在回调中改变某些状态。
+
+```
+// reducers.ts
+const PAINTER_CLOSE = 'painter/close';
+
+export const action_painter_close = createAction(PAINTER_CLOSE);
+
+function reducer_painter_close(state:PainterState) {
+  return {
+    ...state,
+    visible: false,
+  };
+}
+
+// ...
+// ...
+// ...
+/**
+ * Exports reducers and Sagas
+ */
+export const reducer_painter = handleActions(
+  {
+    [PAINTER_OPEN]: reducer_painter_open,
+    [PAINTER_CLOSE]: reducer_painter_close,
+  },
+  initial_state);
+
+```
+在handleActions中我们注册好了对应action_type的对应方法，比如本例中的`reducer_painter_close`，在tsx中触发对应的action我们就会触发这个注册的方法了。
+
+```
+// index.tsx
+import * as React from 'react';
+import { bindActionCreators, Dispatch } from 'redux';
+import * as CSSModules from 'react-css-modules';
+import { connect } from 'react-redux';
+
+import * as style from './style.scss';
+import { ReduxState } from '../redux/reducer';
+import { init_painter } from './models/functions';
+import { action_painter_close, action_painter_open, PainterState } from './models/reducers';
+
+import 'codemao-painter/lib/styles.css';
+
+interface ConnectedProps {
+  state_painter:PainterState;
+  close_painter:typeof action_painter_close;
+  open_painter:typeof action_painter_open;
+}
+
+function map_props(state:ReduxState) {
+  return {
+    state_painter: state.state_painter,
+  };
+}
+
+function map_actions(dispatch:Dispatch<ReduxState>) {
+  return bindActionCreators(
+    {
+      close_painter: action_painter_close,
+      open_painter: action_painter_open,
+    },
+    dispatch);
+}
+
+@CSSModules(style, {
+  allowMultiple: true,
+})
+export class Painter extends React.Component<ConnectedProps, {}> {
+  public element:HTMLElement | HTMLDivElement;
+
+  componentDidMount() {
+    if (!this.element) {
+      return;
+    }
+    // 这部分的话，init_painter在其他文件中被定义，第三个参数是关闭回调，所以close_painter在这里被触发
+    init_painter(this.element, undefined, () => {
+      this.props.close_painter();
+    });
+  }
+
+  render() {
+    const inline_style:React.CSSProperties = {
+      visibility: this.props.state_painter.visible ? undefined : 'hidden',
+    };
+    return (
+      <div styleName="painter" style={inline_style} ref={(el) => {
+        el && (this.element = el);
+      }} />
+    );
+  }
+}
+
+export const PainterContainer:React.ComponentClass<{}> = connect(map_props, map_actions)(Painter);
+```
+那么也就是说，在前面bindActionCreators之后，createAction生成的action creator（来自react－aciton）被绑定，再通过泛型类引入`ConnectedProps`。这样我们就能通过回调来生成action，再通过saga为action绑定方法调用。
+
