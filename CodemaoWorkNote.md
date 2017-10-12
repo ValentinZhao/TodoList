@@ -327,3 +327,6 @@ export const PainterContainer:React.ComponentClass<{}> = connect(map_props, map_
 ```
 那么也就是说，在前面bindActionCreators之后，createAction生成的action creator（来自react－aciton）被绑定，再通过泛型类引入`ConnectedProps`。这样我们就能通过回调来生成action，再通过saga为action绑定方法调用。
 
+# css
+- pointer-event: none可以阻止hover等事件
+
