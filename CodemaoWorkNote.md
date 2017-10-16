@@ -222,6 +222,8 @@ myGenericNumber.add = function(x, y) { return x + y; };
 # 工程架构理解
 以打开material dialog为例来理解一次react＋redux的数据流动过程，包括action创建和reducer等。
 
+react-intl的使用：error_msg是怎样和intl结合起来的，formatMessage怎样使用。
+
 ## Component vs. ComponentClass
 >ComponentClass is the interface for the Component object (the interface for static properties on Component, in other words). To say class Component implements ComponentClass means that every instance of Component must have the properties defined by the ComponentClass interface.
 
@@ -329,4 +331,12 @@ export const PainterContainer:React.ComponentClass<{}> = connect(map_props, map_
 
 # css
 - pointer-event: none可以阻止hover等事件
+- 类似 `—————— . ————————`这样的横线，可以通过div包裹span，外面的div给左右一个很宽比如120px的border，整体给1px的height就能画出这种横线，里面的点用span再vertical－align即可
+
+# GIT
+- git stash,暂存上一次更改
+- git cherry-pick
+- git add -p, patch只能提交原文的修改到暂存区，新增文件要add
+- git push origin YOURBRANCHNAME:feature/feature-name,推送远程分支
+- arc land --squash 提交有多个commit 它会合成一个
 
