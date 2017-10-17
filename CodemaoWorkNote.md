@@ -230,6 +230,65 @@ react-intl的使用：error_msg是怎样和intl结合起来的，formatMessage�
 ## react-redux
 [API docs](https://github.com/reactjs/react-redux/blob/master/docs/api.md#api)
 
+### mapStatesToProps?
+Imagine you have a posts key in your App state.posts
+
+```
+state.posts //
+/*    
+{
+  currentPostId: "",
+  isFetching: false,
+  allPosts: {}
+}
+*/
+```
+And component Posts
+
+By default connect()(Posts) will make all state props available for the connected Component
+
+```
+const Posts = ({posts}) => (
+  <div>
+    {/* access posts.isFetching, access posts.allPosts */}
+  </div> 
+)
+```
+Now when you map the state.posts to your component it gets a bit nicer
+
+```
+const Posts = ({isFetching, allPosts}) => (
+  <div>
+    {/* access isFetching, allPosts directly */}
+  </div> 
+)
+
+connect(
+  state => state.posts
+)(Posts)
+```
+**mapDispatchToProps**
+
+normally you have to write dispatch(anActionCreator()) with bindActionCreators you can do it also more easily like
+
+```
+connect(
+  state => state.posts,
+  dispatch => bindActionCreators({fetchPosts, deletePost}, dispatch)
+)(Posts)
+```
+Now you can use it in your Component
+
+```
+const Posts = ({isFetching, allPosts, fetchPosts, deletePost }) => (
+  <div>
+    <button onClick={() => fetchPosts()} />Fetch posts</button>
+    {/* access isFetching, allPosts directly */}
+  </div> 
+)
+```
+所以简单来说，mapStatesToProps方法就是将redux全局的state通过组件的props来获取；同理，mapDispatchToProps就是将action creator映射到props中
+
 ## saga
 在项目中我们使用redux－saga来处理reducer和action。举个例子，我们要在关闭一个窗口后在回调中改变某些状态。
 
@@ -328,6 +387,22 @@ export class Painter extends React.Component<ConnectedProps, {}> {
 export const PainterContainer:React.ComponentClass<{}> = connect(map_props, map_actions)(Painter);
 ```
 那么也就是说，在前面bindActionCreators之后，createAction生成的action creator（来自react－aciton）被绑定，再通过泛型类引入`ConnectedProps`。这样我们就能通过回调来生成action，再通过saga为action绑定方法调用。
+
+Fork 执行一个非阻塞操作。
+
+Take 暂停并等待action到达。
+
+Race 同步执行多个 effect，然后一旦有一个完成，取消其他 effect。
+
+Call 调用一个函数，如果这个函数返回一个 promise ，那么它会阻塞 saga，直到promise成功被处理。
+
+Put 触发一个Action。
+
+Select 启动一个选择函数，从 state 中获取数据。
+
+takeLatest 意味着我们将执行所有操作，然后返回最后一个(the latest one)调用的结果。如果我们触发了多个时间，它只关注最后一个(the latest one)返回的结果。
+
+takeEvery 会返回所有已出发的调用的结果。
 
 # css
 - pointer-event: none可以阻止hover等事件
