@@ -414,4 +414,19 @@ takeEvery 会返回所有已出发的调用的结果。
 - git add -p, patch只能提交原文的修改到暂存区，新增文件要add
 - git push origin YOURBRANCHNAME:feature/feature-name,推送远程分支
 - arc land --squash 提交有多个commit 它会合成一个
+- 当你再进行一个分支开发的时候，另外一个分支出现了问题，你应该先把自己当前分支手头的东西提交到暂存区，再切换分支修改问题
+
+```
+组件库发布流程
+Release
+Run Test
+Change the version in package.json
+Code Review and merged into master
+Push a git tag for your release to origin (git tag x.x.x && git push origin x.x.x)
+Run 'npm clean & npm build:prod & npm pack' will create a 'cmblockly-x.x.x.tgz'
+Copy the .tgz file to kitten/libs or whichever client will use he update
+Delete the old .tgz file from that same directory
+Adjust Kitten's package.json dependency to point new .tgz file
+Run Test and Code Review in Kitten
+```
 
