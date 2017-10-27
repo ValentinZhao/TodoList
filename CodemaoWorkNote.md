@@ -404,17 +404,171 @@ takeLatest 意味着我们将执行所有操作，然后返回最后一个(the l
 
 takeEvery 会返回所有已出发的调用的结果。
 
+### 以登陆为例说一下大体流程
+```
+//models目录结构
+--- reducers.ts
+--- sagas.ts
+--- actions.ts
+...
+```
+
+以一个普通登录操作为例,需要的操作如下
+
+在某个组件中 dipatch一个login action
+
+```
+import * as actions from '../../actions'
+function login() {
+  this.props.dispatch(actions.LOGIN);
+}
+```
+
+在saga中监听该action（而不是直接触发reducer）
+
+```
+//actions.ts
+export const LOGIN  = 'LOGIN';
+export const login = create_action(LOGIN);
+
+export const LOGIN_WAITING = 'LOGIN_WAITING';
+export const login_waiting = create_action(LOGIN_WAITING);
+
+export const LOGIN_DONE = 'LOGIN_DONE'
+export const login_done = create_action<{username:string}>(LOGIN_DONE)
+// sagas.ts
+import { login, login_waiting, login_done } from './actions'
+
+function* saga_login() {
+  takeLatest(LOGIN, do_login)  //等待 action 'LOGIN'
+} 
+function* do_login() {
+  yield put(login_waiting); //dispatch action LOGIN_WAITING，设置登录Loading状态
+  const response = yield call(...AJAX)   // 发送异步请求
+  //or you can do something else here
+  yield put(login_done(response))
+}
+//reducers
+import { LOGIN_WAITING ... } from 'actions';
+export function login_reducer(state: .. , action: ..) {
+  switch (action.type) {
+    case LOGIN_WAITING :
+      return set_payload(state, {show_waiting_sign: true});
+    ...
+  }
+}
+//实际开发建议使用redux-actions的api减少代码冗余
+```
+
+需要注意的地方：
+
+action分为复杂action和简单action，复杂action可能包含多个action，或者包含更新store以外其它操作。简单action只需要更新store，不需要被saga监听
+复杂action不同类型的副作用注意抽离出来，保持saga函数清晰可读
+全局只需要有唯一一个saga监听相应的action，不要重复监听将业务分布在各处
+这样的优点：
+
+所有业务代码都存在于saga中，不再散落再各处
+可以控制整个action的执行逻辑顺序，就算逻辑再复杂，看起来也不会乱
+组件中可以只dispatch一个action完成整个逻辑，而不是像下面这个例子将逻辑置于组件
+
+```
+//component.ts
+function do_login() {
+  this.props.set_loading_state();
+  this.props.fetch_user();
+  this.props.show_succeed_msg();
+}
+```
+
 # css
 - pointer-event: none可以阻止hover等事件
 - 类似 `—————— . ————————`这样的横线，可以通过div包裹span，外面的div给左右一个很宽比如120px的border，整体给1px的height就能画出这种横线，里面的点用span再vertical－align即可
+- &::-webkit-slider-thumb、&::-webkit-slider-runnable-track配合input的type为`range`就可以使得input变为滑动条
 
-# GIT
+# 工程架构和协作
 - git stash,暂存上一次更改
+- to apply the changes stashed most recently:
+git stash apply
 - git cherry-pick
 - git add -p, patch只能提交原文的修改到暂存区，新增文件要add
 - git push origin YOURBRANCHNAME:feature/feature-name,推送远程分支
 - arc land --squash 提交有多个commit 它会合成一个
 - 当你再进行一个分支开发的时候，另外一个分支出现了问题，你应该先把自己当前分支手头的东西提交到暂存区，再切换分支修改问题
+- npm run watch: webpack --watch
+
+```
+// 启动工程脚本
+#!/usr/bin/env node
+"use strict";
+
+let fs = require('fs');
+let http = require('http');
+let https = require('https');
+let path = require('path');
+
+let app = require('./app.js');
+
+// Functions below come from Google Cloud developer documentation.
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+function normalizePort(val) {
+  let port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+function onError(error) {
+  if (error.syscall !== "listen") {
+    throw error;
+  }
+
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  console.log("Listening on " + bind);
+}
+
+let port = normalizePort(process.env.PORT || 3900);
+let server = http.createServer(app.callback());
+server.listen(port);
+server.on("error", onError);
+server.on("listening", onListening);
+```
 
 ```
 组件库发布流程
@@ -429,4 +583,10 @@ Delete the old .tgz file from that same directory
 Adjust Kitten's package.json dependency to point new .tgz file
 Run Test and Code Review in Kitten
 ```
+# webpack
 
+Webpack将所有静态资源都认为是模块，比如JavaScript，CSS，LESS，TypeScript，JSX，CoffeeScript，图片等等，从而可以对其进行统一管理。为此Webpack引入了加载器的概念，除了纯JavaScript之外，每一种资源都可以通过对应的加载器处理成模块。和大多数包管理器不一样的是，Webpack的加载器之间可以进行串联，一个加载器的输出可以成为另一个加载器的输入。比如LESS文件先通过less-load处理成css，然后再通过css-loader加载成css模块，最后由style-loader加载器对其做最后的处理，从而运行时可以通过style标签将其应用到最终的浏览器环境。图片采用了url-loader加载，如果小于10kb，图片则被转化成 base64 格式的 dataUrl，css文件被打包进了js文件中。
+
+- ExtractTextPlugin: 从bundle中提取出特定的text到一个文件中。使用 extract-text-webpack-plugin就可以把css从js中独立抽离出来。
+- HTMLWebpackPlugin: [基本介绍与使用](https://segmentfault.com/a/1190000007294861)
+- 5ce01c2ffbc2c9b2b57206a729d47259cb4bdf9f
