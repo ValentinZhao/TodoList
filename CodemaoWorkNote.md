@@ -479,6 +479,52 @@ function do_login() {
   this.props.show_succeed_msg();
 }
 ```
+## 一种async/await+promise使用实例
+
+- 第一个情景是，在一个thenable链中又有`addEventListener`的回调请求，此时选择asyc/await来等待其回调
+
+```
+const axios_promise = Axios(axios_config)
+      .then(async (res) => {
+        if (res.status !== 200) {
+          return Promise.reject('Network Error');
+        }
+        // const match_array = sound.url.match(/\w+\/\w+$/);
+        // let type = '';
+        // if (match_array) {
+        //   type = match_array[0];
+        // }
+        // const prefix = type ? `data:${type};base64,` : '';
+        // const prefixed_base64 = prefix + Base64.encode(res.data);
+        // const blob = base64_to_blob(prefixed_base64, type, 512);
+        // const reader = new FileReader();
+        // let result:string = '';
+        // reader.readAsDataURL(blob);
+        // const reader_promise = await new Promise((resolve, reject) => {
+        //   reader.addEventListener('load', () => {
+        //     resolve(reader.result as string);
+        //   });
+        // }).then((base64) => {
+        //   result = base64 as string;
+        // });
+        let result:string = '';
+        result = await blob_to_base64(res.data) as string;
+        sound.url = result;
+        return Promise.resolve(sound);
+      });
+      
+//util.js
+export async function blob_to_base64(blob:Blob) {
+  const reader = new FileReader();
+  return new Promise((resolve) => {
+    reader.addEventListener('load', () => {
+      resolve(reader.result);
+    });
+    reader.readAsDataURL(blob);
+  });
+}
+```
+
 
 # css
 - pointer-event: none可以阻止hover等事件
@@ -589,4 +635,3 @@ Webpack将所有静态资源都认为是模块，比如JavaScript，CSS，LESS�
 
 - ExtractTextPlugin: 从bundle中提取出特定的text到一个文件中。使用 extract-text-webpack-plugin就可以把css从js中独立抽离出来。
 - HTMLWebpackPlugin: [基本介绍与使用](https://segmentfault.com/a/1190000007294861)
-- 5ce01c2ffbc2c9b2b57206a729d47259cb4bdf9f
